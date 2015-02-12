@@ -1,13 +1,26 @@
-var express = require('express')
-var app = express()
-var serveStatic = require('serve-static')
+var express = require('express');
+var app = express();
+var serveStatic = require('serve-static');
+var fs = require('fs');
 
-app.use(serveStatic('./'));
+// serve static pages
+app.use(['gameData','css', 'js', '/'], serveStatic('./', {'index': ['index.html']}));
 
-// accept POST request on the homepage
-app.post('/', function (req, res) {
-  res.send('Got a POST request');
-  // TODO: handle the post
-})
+// accept POST request for updating the game
+app.post('/uploadCurrentGame', function (req, res) {
+    console.log(req.body);
 
-app.listen(8080)
+    /*
+    TODO: save the file (once req.body is working correctly...
+    fs.writeFile('gameData/currentGame.json', JSON.stringify(req.body), function(err){
+        if (err){
+            console.log(err);
+        } else {
+            console.log('currentGame updated');
+        }
+    });
+    */
+
+});
+
+app.listen(8080);
