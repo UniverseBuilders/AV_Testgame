@@ -1,0 +1,16 @@
+{
+    "name": "av_testgame",
+    "version": "0.0.1",
+    "description": "express.js node server + web-form frontend to aid AV game design",
+    "homepage": "asteroid.ventures",
+    "bugs": {
+        "url": "https://github.com/rSimulate/AV_Testgame/issues"
+    },
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/rSimulate/AV_Testgame.git"
+    },
+    "dependencies": {
+        "express": "4.11.2"
+    }
+}

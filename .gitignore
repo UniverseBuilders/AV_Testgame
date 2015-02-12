@@ -1,3 +1,9 @@
+# npm deps
+node_modules/
+
+# intellij
+.idea/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
