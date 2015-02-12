@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "express": "4.11.2",
-        "serve-static": "1.8.1"
+        "serve-static": "1.8.1",
+        "body-parser": "1.11.0"
     }
 }
