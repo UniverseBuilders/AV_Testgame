@@ -46,89 +46,112 @@
             </div>
         </div>
 
-        <div id="main-controls" class="row" style="display:none;">
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-globe fa-5x"></i>
+        <div id="main-controls" style="display:none;">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-globe fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">BODY</div>
+                                    <div><h3>Rocky Atmospheric</h3></div>
+                                    <div>Terrestrial Planet, 1.0 G, 16000 km</div>
+                                </div>
                             </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">BODY</div>
-                                <div><h3>Rocky Atmospheric</h3></div>
-                                <div>Terrestrial Planet, 1.0 G, 16000 km</div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="form-group">
+                                <label>Choose Body</label>
+                                <select id="body-chooser" class="form-control">
+                                    <option>Earth</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Choose Territory</label>
+                                <select id="region-chooser" class="form-control">
+                                    <option>Region 1</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <div class="form-group">
-                            <label>Choose Body</label>
-                            <select id="body-chooser" class="form-control">
-                                <option>Earth</option>
-                            </select>
+                </div>
+                <div class="col-lg-9 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="huge">Region Overview</div>
                         </div>
-                        <div class="form-group">
-                            <label>Choose Territory</label>
-                            <select id="region-chooser" class="form-control">
-                                <option>Region 1</option>
-                            </select>
+                        <div class="panel-footer">
+                            resources:
+                            <div id="resources-summary">loading...</div>
+                            buildings:
+                            <div id="buildings-summary">loading...</div>
+                            <div>
+                                <h3>resource balance:</h3>
+                                production:
+                                <div id="production-summary">TODO</div>
+                                resource in/out flow:
+                                <div id="resource-flow">TODO</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-9 col-md-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="huge">Region Overview</div>
-                    </div>
-                    <div class="panel-footer">
-                        resources:
-                        <div id="resources-summary">loading...</div>
-                        buildings:
-                        <div id="buildings-summary">loading...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
+            <!-- /.row -->
 
-
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="box box-solid box-success">
-                    <div class="box-header">
-                        <h3 class="box-title">selected player data</h3>
-                    </div>
-                    <div class="box-body">
-                        <div id="raw-player-save" style="font-family:monospace;">
-                            loading...
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-solid box-warning">
+                        <div class="box-header">
+                            <h3 class="box-title">turn summary</h3>
+                        </div>
+                        <div class="box-body">
+                            <div id="actions list">
+                                no actions yet...
+                            </div>
+                            <button>submit turn</button>
                         </div>
                     </div>
                 </div>
-                <div class="box box-solid box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title">current raw game save json</h3>
-                    </div>
-                    <div class="box-body">
-                        <div id="raw-save" style="font-family:monospace;">
-                            loading...
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-solid box-success">
+                        <div class="box-header">
+                            <h3 class="box-title">selected player data</h3>
                         </div>
-                        <button onclick="showRawSave('#raw-save')">refresh</button>
+                        <div class="box-body">
+                            <div id="raw-player-save" style="font-family:monospace;">
+                                loading...
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-solid box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">current raw game save json</h3>
+                        </div>
+                        <div class="box-body">
+                            <div id="raw-save" style="font-family:monospace;">
+                                loading...
+                            </div>
+                            <button onclick="showRawSave('#raw-save')">refresh</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="box box-solid box-danger">
-                    <div class="box-header">
-                        <h3 class="box-title">admin controls</h3>
-                    </div>
-                    <div class="box-body">
-                        TODO: currentTurn counter
-                        TODO: add list of players & turn completion state
-                        <button onclick="nextTurn()">Complete all turns</button>
-                        Warn: completing turn before a player has played skips their turn!
+                <div class="col-md-6">
+                    <div class="box box-solid box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">admin controls</h3>
+                        </div>
+                        <div class="box-body">
+                            TODO: currentTurn counter
+                            TODO: add list of players & turn completion state
+                            <button onclick="nextTurn()">Complete all turns</button>
+                            Warn: completing turn before a player has played skips their turn!
+                        </div>
                     </div>
                 </div>
             </div>

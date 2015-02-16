@@ -1,1 +1,104 @@
-{"turn":"1","players":[{"name":"7yl4r","locations":[{"body":"Earth","name":"surface region 1","resources":{"biomass":"10","metal":"2","energy":"5"},"units":{"greenhouse":"5","power plant":"3","mine":"1"}},{"body":"Earth","name":"orbital region 1","resources":{"biomass":"2","metal":"2","energy":"2"},"units":{"greenhouse":"1","power plant":"0","mine":"0"}}],"hasPlayed":"false"},{"name":"ionTom","hasPlayed":"false"},{"name":"bearikson","hasPlayed":"false"}]}
+{
+    "turn":0,
+    "players": [
+        {
+            "name": "7yl4r",
+            "hasPlayed": false,
+            "locations":[
+                {
+                    "body": "Earth",
+                    "name": "surface region 1",
+                    "resources":{
+                        "biomass": 10,
+                        "metal": 2,
+                        "energy": 5
+                    },
+                    "units":{
+                        "greenhouse": 5,
+                        "power plant": 3,
+                        "mine": 1
+                    }
+                },{
+                    "body": "Earth",
+                    "name": "orbital region 1",
+                    "resources":{
+                        "biomass": 2,
+                        "metal": 2,
+                        "energy": 2
+                    },
+                    "units":{
+                        "greenhouse": 1,
+                        "power plant": 0,
+                        "mine": 0
+                    }
+                }
+            ]
+        },
+        {
+            "name": "ionTom",
+            "hasPlayed": false,
+            "locations":[
+                {
+                    "body": "Earth",
+                    "name": "surface region 1",
+                    "resources":{
+                        "biomass": 10,
+                        "metal": 2,
+                        "energy": 5
+                    },
+                    "units":{
+                        "greenhouse": 5,
+                        "power plant": 3,
+                        "mine": 1
+                    }
+                },{
+                    "body": "Earth",
+                    "name": "orbital region 1",
+                    "resources":{
+                        "biomass": 2,
+                        "metal": 2,
+                        "energy": 2
+                    },
+                    "units":{
+                        "greenhouse": 1,
+                        "power plant": 0,
+                        "mine": 0
+                    }
+                }
+            ]
+        },
+        {
+            "name": "bearikson",
+            "hasPlayed": false,
+            "locations":[
+                {
+                    "body": "Earth",
+                    "name": "surface region 1",
+                    "resources":{
+                        "biomass": 10,
+                        "metal": 2,
+                        "energy": 5
+                    },
+                    "units":{
+                        "greenhouse": 5,
+                        "power plant": 3,
+                        "mine": 1
+                    }
+                },{
+                    "body": "Earth",
+                    "name": "orbital region 1",
+                    "resources":{
+                        "biomass": 2,
+                        "metal": 2,
+                        "energy": 2
+                    },
+                    "units":{
+                        "greenhouse": 1,
+                        "power plant": 0,
+                        "mine": 0
+                    }
+                }
+            ]
+        }
+    ]
+}
