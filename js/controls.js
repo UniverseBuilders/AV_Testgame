@@ -66,10 +66,25 @@ $(document).on("regionsLoaded", function () {
     }
 
     $("#body-chooser").html(listItems);
+    $("#body-chooser").trigger("change");
 });
 
 $("#body-chooser").on("change", function(evt){
-    // TODO: update territory box
+    // update territory box
+    var body = window.regions[$("#body-chooser").val()];
+
+    var listItems = '';
+    for (var i = 0; i < body.orbit.length; i++){
+        listItems += buildOption(body.orbit[i]);
+    }
+    for (var i = 0; i < body.atmospheric.length; i++){
+        listItems += buildOption(body.atmospheric[i]);
+    }
+    for (var i = 0; i < body.surface.length; i++){
+        listItems += buildOption(body.surface[i]);
+    }
+
+    $("#region-chooser").html(listItems);
 });
 
 // ==============================
