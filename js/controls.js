@@ -123,6 +123,9 @@ $("#body-chooser").on("change", function(evt){
 });
 // ==============================
 
+// ==============================
+// ===      Region Summary    ===
+// ==============================
 $("#region-chooser").on("change", function(evt){
     var player = $("#player-selector").val();
     var body = $("#body-chooser").val();
@@ -134,3 +137,23 @@ $("#region-chooser").on("change", function(evt){
     $("#buildings-summary").html(JSON.stringify(regionalData.units));
 
 });
+// ==============================
+
+// ==============================
+// ===      turn handling     ===
+// ==============================
+nextTurn = function(){
+    // moves to the next turn
+    window.gameData["turn"] = parseInt(window.gameData["turn"]) + 1;
+
+    // reset all player-has-played booleans
+    for (var i = 0; i < window.gameData.players.length; i++) {
+        window.gameData.players[i].hasPlayed = false;
+    }
+
+    $.post( "/uploadCurrentGame", window.gameData, function( response ) {
+        alert('new game json uploaded');
+        response.send('success');
+    });
+}
+// ==============================
