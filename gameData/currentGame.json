@@ -1,1 +1,15 @@
-{"test":"data is here","counter":1}
+{
+    "test":"data is here",
+    "counter":1,
+    "players": [
+        {
+            "name": "7yl4r"
+        },
+        {
+            "name": "ionTom"
+        },
+        {
+            "name": "bearikson"
+        }
+    ]
+}
