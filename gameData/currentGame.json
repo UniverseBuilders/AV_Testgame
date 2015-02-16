@@ -1,15 +1,1 @@
-{
-    "test":"data is here",
-    "counter":1,
-    "players": [
-        {
-            "name": "7yl4r"
-        },
-        {
-            "name": "ionTom"
-        },
-        {
-            "name": "bearikson"
-        }
-    ]
-}
+{"test":"data is here","counter":"2","players":[{"name":"7yl4r","locations":[{"body":"Earth","name":"South America","resources":{"biomass":"10","metal":"2","energy":"5"},"units":{"greenhouse":"5","power plant":"3","mine":"1"}},{"body":"Earth","name":"Australia","resources":{"biomass":"2","metal":"2","energy":"2"},"units":{"greenhouse":"1","power plant":"0","mine":"0"}}]},{"name":"ionTom"},{"name":"bearikson"}]}

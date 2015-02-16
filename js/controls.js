@@ -42,8 +42,16 @@ $("#player-selector").on("change", function(evt){
         $("#raw-player-save").html( "ERR: " +err.message );
         throw err;
     }
-
-
 });
 
 // ================================
+
+
+// ==============================
+// === choose-a-body dropdown ===
+// ==============================
+$("#body-chooser").on("change", function(evt){
+
+});
+
+// ==============================

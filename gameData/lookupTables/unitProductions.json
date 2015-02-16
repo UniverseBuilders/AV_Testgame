@@ -1,4 +1,4 @@
-{[resouce,Algae Farm,Electrolysis,Fermentation,LOX,HC Fuel,Lux,Machine,Rockets,Solid Fuel,Solar Plant,Shipyard,Spaceport,Storage,Greenhouse,Air Scrubber,Nuclear Plant,Chemical Generator,Waste Recycler,Habitat],
+{[resource,Algae Farm,Electrolysis,Fermentation,LOX,HC Fuel,Lux,Machine,Rockets,Solid Fuel,Solar Plant,Shipyard,Spaceport,Storage,Greenhouse,Air Scrubber,Nuclear Plant,Chemical Generator,Waste Recycler,Habitat],
 [Steel,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 [Alloys,0,0,0,0,0,0,-2,-2,0,0,0,0,0,0,0,0,0,0,0],
 [Nitrates,-1,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0],
