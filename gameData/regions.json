@@ -1,0 +1,24 @@
+{
+    "Earth": {
+        "orbit":[
+            "orbital region 1"
+        ],
+        "atmospheric":[
+            "atm region 1"
+        ],
+        "surface":[
+            "surface region 1"
+        ]
+    },
+    "Moon": {
+        "orbit":[
+            "orbital region 1"
+        ],
+        "atmospheric":[
+            "atm region 1"
+        ],
+        "surface":[
+            "surface region 1"
+        ]
+    }
+}

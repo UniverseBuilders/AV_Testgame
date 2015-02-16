@@ -13,6 +13,11 @@ getPlayerData = function(playerName){
     // if name not found
     throw new Error("player '" + playerName + "' not found");
 }
+
+buildOption = function(str){
+    // returns HTML for an select option with given string as value & text
+     return "<option value='" + str + "'>" + str + "</option>";
+}
 // =============================
 
 
@@ -23,9 +28,7 @@ $(document).on("gameDataLoaded", function () {
     var listItems = '<option selected="selected" value="0">- Select -</option>';
 
     for (var i = 0; i < window.gameData.players.length; i++) {
-         listItems += "<option value='" + window.gameData.players[i].name + "'>"
-            + window.gameData.players[i].name
-            + "</option>";
+         listItems += buildOption(window.gameData.players[i].name);
     }
 
     $("#player-selector").html(listItems);
@@ -50,8 +53,23 @@ $("#player-selector").on("change", function(evt){
 // ==============================
 // === choose-a-body dropdown ===
 // ==============================
-$("#body-chooser").on("change", function(evt){
+$.get( "gameData/regions.json", function( data ) {
+    window.regions = data;
+    $(document).trigger("regionsLoaded");
+});
 
+$(document).on("regionsLoaded", function () {
+    var listItems = '';
+
+    for (region in window.regions){
+        listItems += buildOption(region);
+    }
+
+    $("#body-chooser").html(listItems);
+});
+
+$("#body-chooser").on("change", function(evt){
+    // TODO: update territory box
 });
 
 // ==============================
