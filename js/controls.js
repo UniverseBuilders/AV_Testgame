@@ -14,6 +14,39 @@ getPlayerData = function(playerName){
     throw new Error("player '" + playerName + "' not found");
 }
 
+// object with fully populated 0 values for a region
+ZERO_REGION = {
+    "body":undefined,
+    "name":undefined,
+    "resources":{
+        "biomass":0,
+        "metal":0,
+        "energy":0
+    },
+    "units":{
+        "greenhouse":0,
+        "power plant":0,
+        "mine":0
+    }
+}
+
+getRegionPresence = function(playerName, bodyName, regionName){
+    // returns data object containing resources and buildings in given region on given body
+    var playerData = getPlayerData(playerName);
+
+    for (var i = 0; i < playerData.locations.length; i++){
+        if (playerData.locations[i].body == bodyName
+            && playerData.locations[i].name == regionName){
+            return playerData.locations[i];
+        }  // else keep looking
+    }
+    // if not found region not settled by this player, return zero for everything
+    var res = ZERO_REGION;
+    res.body = bodyName;
+    res.name = regionName;
+    return res;
+}
+
 buildOption = function(str){
     // returns HTML for an select option with given string as value & text
      return "<option value='" + str + "'>" + str + "</option>";
@@ -40,6 +73,7 @@ $("#player-selector").on("change", function(evt){
         var playerData = getPlayerData(player);
         $("#main-controls").show();
         $("#raw-player-save").html( JSON.stringify(playerData));
+        $("#body-chooser").trigger("change");
     } catch(err){
         $("#main-controls").hide();
         $("#raw-player-save").html( "ERR: " +err.message );
@@ -85,6 +119,18 @@ $("#body-chooser").on("change", function(evt){
     }
 
     $("#region-chooser").html(listItems);
+    $("#region-chooser").trigger("change");
 });
-
 // ==============================
+
+$("#region-chooser").on("change", function(evt){
+    var player = $("#player-selector").val();
+    var body = $("#body-chooser").val();
+    var region = $("#region-chooser").val();
+
+    var regionalData = getRegionPresence(player, body, region);
+
+    $("#resources-summary").html(JSON.stringify(regionalData.resources));
+    $("#buildings-summary").html(JSON.stringify(regionalData.units));
+
+});
