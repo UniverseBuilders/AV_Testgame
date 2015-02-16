@@ -11,7 +11,7 @@ getPlayerData = function(playerName){
         }
     }
     // if name not found
-    throw new Error("player " + playerName + "not found");
+    throw new Error("player '" + playerName + "' not found");
 }
 // =============================
 
@@ -33,9 +33,17 @@ $(document).on("gameDataLoaded", function () {
 
 $("#player-selector").on("change", function(evt){
     var player = $("#player-selector").val();
-    console.log(player);
+    try{
+        var playerData = getPlayerData(player);
+        $("#main-controls").show();
+        $("#raw-player-save").html( JSON.stringify(playerData));
+    } catch(err){
+        $("#main-controls").hide();
+        $("#raw-player-save").html( "ERR: " +err.message );
+        throw err;
+    }
 
-    playerData = getPlayerData(player);
+
 });
 
 // ================================

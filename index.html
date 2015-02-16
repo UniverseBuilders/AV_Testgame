@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div id="main-controls" class="row" style="display:none;">
             <div class="col-lg-3 col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -237,14 +237,24 @@
 
 
 
-        <div clas="row">
+        <div class="row">
             <div class="col-md-6">
+                <div class="box box-solid box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">selected player data</h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="raw-player-save" style="font-family:monospace;">
+                            loading...
+                        </div>
+                    </div>
+                </div>
                 <div class="box box-solid box-primary">
                     <div class="box-header">
                         <h3 class="box-title">current raw game save json</h3>
                     </div>
                     <div class="box-body">
-                        <div id="raw-save" style="font-family:monospace; white-space:pre;">
+                        <div id="raw-save" style="font-family:monospace;">
                             loading...
                         </div>
                         <button onclick="showRawSave('#raw-save')">refresh</button>
@@ -268,11 +278,11 @@
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
 
-// test scripts
+<!-- test scripts -->
 <script src="js/showRawSave.js"></script>
 <script src="js/incrementCounter.js"></script>
 
-// main app script
+<!-- main app script -->
 <script src="js/controls.js"></script>
 
 </html>
