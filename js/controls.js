@@ -84,9 +84,16 @@ $("#player-selector").on("change", function(evt){
     var player = $("#player-selector").val();
     try{
         var playerData = getPlayerData(player);
-        $("#main-controls").show();
         $("#raw-player-save").html( JSON.stringify(playerData));
         $("#body-chooser").trigger("change");
+        if (!playerData.hasPlayed || playerData.hasPlayed == "false"){
+            $("#main-controls").show();
+            $("#turn-complete").hide();
+        } else {
+            $("#turn-complete").show();
+            $("#main-controls").hide();
+        }
+
     } catch(err){
         $("#main-controls").hide();
         $("#raw-player-save").html( "ERR: " +err.message );
@@ -155,6 +162,16 @@ $("#region-chooser").on("change", function(evt){
 // ==============================
 // ===      turn handling     ===
 // ==============================
+$("#turn-submit-btn").on("click", function(evt){
+    var player = $("#player-selector").val();
+    getPlayerData(player).hasPlayed = true;
+
+    $.post( "/uploadCurrentGame", window.gameData, function( response ) {
+        response.send('success');
+        location.reload();
+    });
+});
+
 nextTurn = function(){
     // moves to the next turn
     window.gameData["turn"] = parseInt(window.gameData["turn"]) + 1;
