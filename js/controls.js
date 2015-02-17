@@ -47,6 +47,19 @@ getRegionPresence = function(playerName, bodyName, regionName){
     return res;
 }
 
+addBuildings = function( playerName, bodyName, regionName, amount, buildingName){
+    var data = getRegionPresence(playerName, bodyName, regionName);
+
+    // add building to count
+    if (typeof buildingName === undefined){
+        data.units[buildingName] = amount;
+    } else {
+        data.units[buildingName] += parseInt(amount);
+    }
+
+    // TODO: subtract resources
+}
+
 buildOption = function(str){
     // returns HTML for an select option with given string as value & text
      return "<option value='" + str + "'>" + str + "</option>";
@@ -157,3 +170,21 @@ nextTurn = function(){
     });
 }
 // ==============================
+
+// ==============================
+// ===    construction        ===
+// ==============================
+$("#build-stuff-btn").on("click", function(evt){
+    var amount = $("#build-amount").val();
+    var building = $("#selected-building").val();
+
+    $("#actions-list").append("<li>build " + amount + " " + building + "(s)");
+
+    var player = $("#player-selector").val();
+    var body = $("#body-chooser").val();
+    var region = $("#region-chooser").val();
+
+    addBuildings(player, body, region, amount, building);
+});
+// ==============================
+

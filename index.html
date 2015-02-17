@@ -78,7 +78,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-6">
+                <div class="col-md-4">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="huge">Region Overview</div>
@@ -98,6 +98,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-5">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="huge">Construction</div>
+                        </div>
+                        <div class="panel-footer">
+                            <button id="build-stuff-btn">Build</button>
+                            <textarea id="build-amount" rows="1" cols="5" readonly>1</textarea>
+                            <select id="selected-building">
+                                <option value="greenhouse">Greenhouse</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.row -->
 
@@ -108,8 +122,8 @@
                             <h3 class="box-title">turn summary</h3>
                         </div>
                         <div class="box-body">
-                            <div id="actions list">
-                                no actions yet...
+                            <div id="actions-list">
+                                <li>TURN START</li>
                             </div>
                             <button>submit turn</button>
                         </div>
