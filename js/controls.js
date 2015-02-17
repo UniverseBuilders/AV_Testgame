@@ -300,7 +300,7 @@ $(document).on("buildBuilding", function(evt, kwargs){
 });
 
 $(document).on("buildBuilding", function(evt, kwargs){
-    $("#actions-list").append("<li>build " + kwargs.amount + " " + kwargs.buildingName + "(s)");
+    $("#actions-list").append("<li>build " + kwargs.amount + " " + kwargs.buildingName + "(s) @ " + kwargs.regionName + " on " + kwargs.bodyName);
 });
 
 // reset the action list on player switch WARN: this doesn't actually undo the actions

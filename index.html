@@ -114,9 +114,12 @@
                         </div>
                         <div class="panel-footer">
                             <button id="build-stuff-btn">Build</button>
-                            <textarea id="build-amount" rows="1" cols="5" readonly>1</textarea>
+                            <input type="number" id="build-amount" value="1" min="0" max="999"/>
+                            <!-- TODO: populate this after ajax call to load building stats -->
                             <select id="selected-building">
                                 <option value="greenhouse">Greenhouse</option>
+                                <option value="power plant">Power Plant</option>
+                                <option value="mine">Metal Mine</option>
                             </select>
                         </div>
                     </div>
