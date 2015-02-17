@@ -30,25 +30,35 @@ ZERO_REGION = {
     }
 }
 
-getRegionPresence = function(playerName, bodyName, regionName){
+getRegionPresence = function(params){
     // returns data object containing resources and buildings in given region on given body
-    var playerData = getPlayerData(playerName);
+    // Required params:
+    //  :param:playerName : name of player
+    //  :param:bodyName : name of celestial body
+    //  :param:regionName : name of region on body
+    // Optional params:
+    // :param:mutable : true if trying to get mutable object, false||undefined if result is read-only
+    var playerData = getPlayerData(params.playerName);
 
     for (var i = 0; i < playerData.locations.length; i++){
-        if (playerData.locations[i].body == bodyName
-            && playerData.locations[i].name == regionName){
+        if (playerData.locations[i].body == params.bodyName
+            && playerData.locations[i].name == params.regionName){
             return playerData.locations[i];
         }  // else keep looking
     }
     // if not found region not settled by this player, return zero for everything
-    var res = ZERO_REGION;
-    res.body = bodyName;
-    res.name = regionName;
-    return res;
+    if (typeof params.mutable === "undefined" || !params.mutable) {
+        var res = ZERO_REGION;
+        res.body = params.bodyName;
+        res.name = params.regionName;
+        return res;
+    } else {  // no mutable object exists
+        throw new Error("player has no presence in this region");
+    }
 }
 
 addBuildings = function( playerName, bodyName, regionName, amount, buildingName){
-    var data = getRegionPresence(playerName, bodyName, regionName);
+    var data = getRegionPresence({"playerName": playerName, "bodyName": bodyName, "regionName": regionName, "mutable": true});
 
     // add building to count
     if (typeof buildingName === undefined){
@@ -80,6 +90,14 @@ getProductionLevels = function(buildingName){
     }
 }
 
+getBuildingCost = function(buildingName){
+    // returns the cost to build given building type from table
+
+    // TODO: use lookupTable instead of following return
+
+    return {"metal":4, "biomass": 2}
+}
+
 sumResources = function(r1, r2){
     // returns sum of resources in r2 to r1
     // (for max efficiency r2 should be the shorter of the two lists)
@@ -99,9 +117,36 @@ sumResources = function(r1, r2){
     return _res;
 }
 
+subtractResources = function(r1, r2){
+    // returns r1 - r2
+    var _r2 = {};  // use a copy so we don't mutate original r2
+    for (resKey in r2){
+        _r2[resKey] = -parseInt(r2[resKey]);
+    }
+    return sumResources(r1, _r2);
+}
+
+resources_lessThanOrEq = function (r1, r2){
+    // true if r1 < r2 for all resource values
+    for (resKey in r1){
+        if (typeof r2[resKey] === "undefined"){
+            // r2 has none of this resource
+            return false;
+        } else {
+            if (parseInt(r1[resKey]) <= parseInt(r2[resKey]) ){
+                continue
+            } else {
+                // r2 has less of this resource than r1
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 getProduction = function(playerName, bodyName, regionName){
     // returns current production levels for given player region
-    var regionalData = getRegionPresence(playerName, bodyName, regionName);
+    var regionalData = getRegionPresence({"playerName":playerName, "bodyName":bodyName, "regionName":regionName});
     var production = {};
 
     for (buildingName in regionalData.units){
@@ -215,7 +260,7 @@ $("#region-chooser").on("change", function(evt){
     var body = $("#body-chooser").val();
     var region = $("#region-chooser").val();
 
-    var regionalData = getRegionPresence(player, body, region);
+    var regionalData = getRegionPresence({"playerName":player, "bodyName":body, "regionName":region});
 
     $("#resources-summary").html(JSON.stringify(regionalData.resources));
     $("#buildings-summary").html(JSON.stringify(regionalData.units));
@@ -290,9 +335,24 @@ $("#build-stuff-btn").on("click", function(evt){
     var body = $("#body-chooser").val();
     var region = $("#region-chooser").val();
 
-    // TODO: subtract resources
+    try {
+        var resources = getRegionPresence({"playerName": player, "bodyName": body, "regionName": region, "mutable": true}).resources;
+        var cost = getBuildingCost(building);
+        if (!resources_lessThanOrEq( cost, resources)){
+            throw new Error('insufficient resources');
+        } else {
+            resources = subtractResources(resources, cost);
+        }
 
-    $(document).trigger("buildBuilding", {"playerName":player, "bodyName":body, "regionName":region, "amount":amount, "buildingName":building});
+        $(document).trigger("buildBuilding", {"playerName":player, "bodyName":body, "regionName":region, "amount":amount, "buildingName":building});
+    } catch(err){
+        if (err.message == "player has no presence in this region"
+            || err.message == "insufficient resources"){
+            alert('not enough resources to build there');
+        } else {
+            throw err;
+        }
+    }
 });
 
 $(document).on("buildBuilding", function(evt, kwargs){
