@@ -164,15 +164,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="box box-solid box-danger">
-                        <div class="box-header">
-                            <h3 class="box-title">admin controls</h3>
+            </div>
+        </div> <!-- /main-controls -->
+        <div class="col-md-12">
+            <div id="admin-controls" class="box box-solid box-danger">
+                <div class="box-header">
+                    <h3 class="box-title">admin controls</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            turn # <span id="current-turn" class="huge">???</span>
                         </div>
-                        <div class="box-body">
-                            TODO: currentTurn counter
-                            TODO: add list of players & turn completion state
-                            <button onclick="nextTurn()">Complete all turns</button>
+                        <div class="col-xs-6">
+                            Player status:
+                            <div id="player-completion-list">check js console for err if this text is showing...</div>
+
+                            <button onclick="nextTurn()">Complete all turns</button><br>
                             Warn: completing turn before a player has played skips their turn!
                         </div>
                     </div>

@@ -254,6 +254,26 @@ nextTurn = function(){
         response.send('success');
     });
 }
+
+$(document).on("gameDataLoaded", function(evt){
+    $('#current-turn').html(window.gameData.turn);
+});
+
+$(document).on("gameDataLoaded", function(evt){
+    var html = "";
+
+    for (i in gameData.players){
+        var player = gameData.players[i];
+        if (!player.hasPlayed || player.hasPlayed == "false"){
+            html += '<i class="fa fa-square-o fa-2x"></i>';
+        } else {
+            html += '<i class="fa fa-check-square-o fa-2x"></i>';
+        }
+        html += player.name + '<br>';
+    }
+
+    $('#player-completion-list').html(html);
+});
 // ==============================
 
 // ==============================
