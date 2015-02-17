@@ -229,13 +229,13 @@ $("#turn-submit-btn").on("click", function(evt){
 
     // compute production (@ each location) for this turn
     for (locationIndex in player.locations){
-        var location = player.locations[locationIndex];
-        var deltaRes = getProduction( playerName, location.body, location.name );
-        location.resources = sumResources(location.resources, deltaRes);
+        var playerLocation = player.locations[locationIndex];
+        var deltaRes = getProduction( playerName, playerLocation.body, playerLocation.name );
+        playerLocation.resources = sumResources(playerLocation.resources, deltaRes);
     }
 
     $.post( "/uploadCurrentGame", window.gameData, function( response ) {
-        response.send('success');
+        alert('game json uploaded');
         location.reload();
     });
 });
@@ -250,8 +250,8 @@ nextTurn = function(){
     }
 
     $.post( "/uploadCurrentGame", window.gameData, function( response ) {
-        alert('new game json uploaded');
-        response.send('success');
+        alert('game json uploaded');
+        location.reload();
     });
 }
 

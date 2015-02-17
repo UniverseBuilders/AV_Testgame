@@ -25,6 +25,8 @@ app.post('/uploadCurrentGame', function (req, res) {
             console.log('currentGame updated');
         }
     });
+
+    res.send('success... probably...');
 });
 
 console.log('listening on port 8080...');
