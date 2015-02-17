@@ -56,13 +56,59 @@ addBuildings = function( playerName, bodyName, regionName, amount, buildingName)
     } else {
         data.units[buildingName] += parseInt(amount);
     }
-
-    // TODO: subtract resources
 }
 
 buildOption = function(str){
     // returns HTML for an select option with given string as value & text
      return "<option value='" + str + "'>" + str + "</option>";
+}
+
+getProductionLevels = function(buildingName){
+    // returns the resource production levels for named building from unitProductions lookupTable
+
+    //TODO: use lookupTable instead of the following switch
+
+    switch(buildingName) {
+        case "greenhouse":
+            return {"biomass":2, "energy":-2};
+        case "power plant":
+            return {"energy": 1};
+        case "mine":
+            return {"biomass":-1, "energy":-1, "metal":1}
+        default:
+            throw new Error("unrecognized building name: " + buildingName);
+    }
+}
+
+sumResources = function(r1, r2){
+    // returns sum of resources in r2 to r1
+    // (for max efficiency r2 should be the shorter of the two lists)
+    var _res = {};
+    // res = copy(r1)
+    for (resKey in r1){
+        _res[resKey] = r1[resKey];
+    }
+    // res += r2
+    for (resKey in r2){
+        if (typeof _res[resKey] === "undefined"){
+            _res[resKey] = parseInt(r2[resKey]);
+        } else {
+            _res[resKey] += parseInt(r2[resKey]);
+        }
+    }
+    return _res;
+}
+
+getProduction = function(playerName, bodyName, regionName){
+    // returns current production levels for given player region
+    var regionalData = getRegionPresence(playerName, bodyName, regionName);
+    var production = {};
+
+    for (buildingName in regionalData.units){
+        var buildingOutput = getProductionLevels(buildingName);
+        production = sumResources(production, buildingOutput);
+    }
+    return production;
 }
 // =============================
 
@@ -143,6 +189,20 @@ $("#body-chooser").on("change", function(evt){
 });
 // ==============================
 
+
+// ==============================
+// === resource production    ===
+// ==============================
+$("#region-chooser").on("change", function(evt){
+    var player = $("#player-selector").val();
+    var body = $("#body-chooser").val();
+    var region = $("#region-chooser").val();
+
+    $("#production-summary").html(JSON.stringify(getProduction( player, body, region )));
+});
+// ==============================
+
+
 // ==============================
 // ===      Region Summary    ===
 // ==============================
@@ -155,7 +215,6 @@ $("#region-chooser").on("change", function(evt){
 
     $("#resources-summary").html(JSON.stringify(regionalData.resources));
     $("#buildings-summary").html(JSON.stringify(regionalData.units));
-
 });
 // ==============================
 
@@ -163,8 +222,17 @@ $("#region-chooser").on("change", function(evt){
 // ===      turn handling     ===
 // ==============================
 $("#turn-submit-btn").on("click", function(evt){
-    var player = $("#player-selector").val();
-    getPlayerData(player).hasPlayed = true;
+    var playerName = $("#player-selector").val();
+    var player = getPlayerData(playerName);
+
+    player.hasPlayed = true;
+
+    // compute production (@ each location) for this turn
+    for (locationIndex in player.locations){
+        var location = player.locations[locationIndex];
+        var deltaRes = getProduction( playerName, body, region );
+        location.resources = sumResources(location.resources, deltaRes);
+    }
 
     $.post( "/uploadCurrentGame", window.gameData, function( response ) {
         response.send('success');
@@ -194,14 +262,26 @@ nextTurn = function(){
 $("#build-stuff-btn").on("click", function(evt){
     var amount = $("#build-amount").val();
     var building = $("#selected-building").val();
-
-    $("#actions-list").append("<li>build " + amount + " " + building + "(s)");
-
     var player = $("#player-selector").val();
     var body = $("#body-chooser").val();
     var region = $("#region-chooser").val();
 
-    addBuildings(player, body, region, amount, building);
+    // TODO: subtract resources
+
+    $(document).trigger("buildBuilding", player, body, region, amount, building);
+});
+
+$(document).on("buildBuilding", function(playerName, bodyName, regionName, amount, buildingName){
+    addBuildings(playerName, bodyName, regionName, amount, buildingName);
+});
+
+$(document).on("buildBuilding", function(playerName, bodyName, regionName, amount, buildingName){
+    $("#actions-list").append("<li>build " + amount + " " + buildingName + "(s)");
+});
+
+// reset the action list on player switch WARN: this doesn't actually undo the actions
+$("#player-selector").on("change", function(evt){
+    $("#actions-list").html("<li>TURN START</li>");
 });
 // ==============================
 
