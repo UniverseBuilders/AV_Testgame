@@ -133,11 +133,15 @@ $("#player-selector").on("change", function(evt){
         $("#raw-player-save").html( JSON.stringify(playerData));
         $("#body-chooser").trigger("change");
         if (!playerData.hasPlayed || playerData.hasPlayed == "false"){
-            $("#main-controls").show();
             $("#turn-complete").hide();
+            $("#main-controls").show();
+            $("#turn-submit-box").show();
+            $("#construction-box").show();
         } else {
             $("#turn-complete").show();
-            $("#main-controls").hide();
+            $("#main-controls").show();
+            $("#turn-submit-box").hide();
+            $("#construction-box").hide();
         }
 
     } catch(err){
