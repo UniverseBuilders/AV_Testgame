@@ -144,6 +144,15 @@ resources_lessThanOrEq = function (r1, r2){
     return true;
 }
 
+scaleResources = function(resources, scalar){
+    // returns resources *= scalar
+    var res = {}
+    for (resKey in resources){
+        res[resKey] = parseInt(resources[resKey]) * scalar
+    }
+    return res
+}
+
 getProduction = function(playerName, bodyName, regionName){
     // returns current production levels for given player region
     var regionalData = getRegionPresence({"playerName":playerName, "bodyName":bodyName, "regionName":regionName});
@@ -151,7 +160,9 @@ getProduction = function(playerName, bodyName, regionName){
 
     for (buildingName in regionalData.units){
         var buildingOutput = getProductionLevels(buildingName);
-        production = sumResources(production, buildingOutput);
+        var buildingCount = regionalData.units[buildingName];
+        var totalOutput = scaleResources(buildingOutput, buildingCount);
+        production = sumResources(production, totalOutput);
     }
     return production;
 }
