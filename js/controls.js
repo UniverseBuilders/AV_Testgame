@@ -54,7 +54,7 @@ addBuildings = function( playerName, bodyName, regionName, amount, buildingName)
     if (typeof buildingName === undefined){
         data.units[buildingName] = amount;
     } else {
-        data.units[buildingName] += parseInt(amount);
+        data.units[buildingName] = parseInt(data.units[buildingName]) + parseInt(amount);
     }
 }
 
@@ -93,7 +93,7 @@ sumResources = function(r1, r2){
         if (typeof _res[resKey] === "undefined"){
             _res[resKey] = parseInt(r2[resKey]);
         } else {
-            _res[resKey] += parseInt(r2[resKey]);
+            _res[resKey] = parseInt(_res[resKey]) + parseInt(r2[resKey]);
         }
     }
     return _res;
@@ -230,7 +230,7 @@ $("#turn-submit-btn").on("click", function(evt){
     // compute production (@ each location) for this turn
     for (locationIndex in player.locations){
         var location = player.locations[locationIndex];
-        var deltaRes = getProduction( playerName, body, region );
+        var deltaRes = getProduction( playerName, location.body, location.name );
         location.resources = sumResources(location.resources, deltaRes);
     }
 
@@ -268,15 +268,15 @@ $("#build-stuff-btn").on("click", function(evt){
 
     // TODO: subtract resources
 
-    $(document).trigger("buildBuilding", player, body, region, amount, building);
+    $(document).trigger("buildBuilding", {"playerName":player, "bodyName":body, "regionName":region, "amount":amount, "buildingName":building});
 });
 
-$(document).on("buildBuilding", function(playerName, bodyName, regionName, amount, buildingName){
-    addBuildings(playerName, bodyName, regionName, amount, buildingName);
+$(document).on("buildBuilding", function(evt, kwargs){
+    addBuildings(kwargs.playerName, kwargs.bodyName, kwargs.regionName, kwargs.amount, kwargs.buildingName);
 });
 
-$(document).on("buildBuilding", function(playerName, bodyName, regionName, amount, buildingName){
-    $("#actions-list").append("<li>build " + amount + " " + buildingName + "(s)");
+$(document).on("buildBuilding", function(evt, kwargs){
+    $("#actions-list").append("<li>build " + kwargs.amount + " " + kwargs.buildingName + "(s)");
 });
 
 // reset the action list on player switch WARN: this doesn't actually undo the actions
