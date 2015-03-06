@@ -28,6 +28,7 @@
     <!-- angular core -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <!-- app modules -->
+    <script src="districtClaimer/districtClaimer.js"></script>
     <script type="text/javascript" src="js/AV_app.js"></script>
 
 </head>
@@ -61,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <div id="main-controls" ng-show="playCtrl.player().hasPlayed == 'false'">
+             <div id="main-controls" ng-show="playCtrl.player().hasPlayed == 'false'">
                 <div class="row">
                     <div id="region-select-box" class="col-lg-3 col-md-6" >
                         <div class="panel panel-primary">
@@ -126,6 +127,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <district-claimer class="col-lg-3 col-md-4"></district-claimer>
                 </div>
                 <!-- /.row -->
 

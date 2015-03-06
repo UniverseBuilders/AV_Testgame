@@ -1,0 +1,24 @@
+<div>
+    <div class="panel panel-success" ng-controller="districtClaimController as claimCtrl" ng-show="playCtrl.selectedBodyID >= 0">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-globe fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                    <div><h3>Claim New District</h3></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="form-group">
+                <label>Launch From</label>
+                <select class="form-control">
+                    <option ng-repeat="locale in playCtrl.player().locations" value={{$index}}>
+                        {{locale.body}}:{{locale.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

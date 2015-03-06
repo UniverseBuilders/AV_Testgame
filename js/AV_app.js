@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('avCore', []);
+    var app = angular.module('avCore', ['districtClaimer']);
 
     var getProductionLevels = function(buildingName){
         // returns the resource production levels for named building from unitProductions lookupTable
@@ -82,7 +82,7 @@
     };
 
     app.controller('playerControls', ['$http', function($http) {
-        game = this;
+        var game = this;
         this.players = [];
         //this.playerID = null; // currently selected player id in players array
         //this.selectedBodyID = null;
@@ -129,8 +129,6 @@
         this.buildIt = function() {
             var amount = $("#build-amount").val();
             var building = $("#selected-building").val();
-            console.log('building...',amount, building);
-
             try {
                 var cost = scaleResources(getBuildingCost(building), amount);
                 if (!resources_lessThanOrEq(cost, game.location().resources)) {
