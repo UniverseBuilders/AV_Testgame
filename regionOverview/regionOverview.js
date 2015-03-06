@@ -24,6 +24,6 @@
                 console.log('err suppressed by regionOverviewController: ', err);
                 return false;
             }
-        }
+        };
     });
 })();

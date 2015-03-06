@@ -95,6 +95,10 @@
             game.regionData = data;
         });
 
+        $http.get('./gameData/districtTypes.json').success(function(data){
+            game.districtData = data;
+        });
+
         this.player = function(){
             // returns player object for currently selected player
             if (typeof game.playerID == "undefined"){
