@@ -89,6 +89,7 @@
 
         $http.get('/gameData/currentGame.json').success(function(data){
             game.players = data.players;
+            game.gameData = data;
         });
         $http.get('/gameData/regions.json').success(function(data){
             game.regionData = data;
@@ -99,7 +100,7 @@
             if (typeof game.playerID == "undefined"){
                 ;//console.log('WARN: playerID undefined');
             } else {
-                return game.players[game.playerID];
+                return game.gameData.players[game.playerID];
             }
         };
         this.location = function(){
@@ -131,7 +132,7 @@
             console.log('building...',amount, building);
 
             try {
-                var cost = getBuildingCost(building);
+                var cost = scaleResources(getBuildingCost(building), amount);
                 if (!resources_lessThanOrEq(cost, game.location().resources)) {
                     throw new Error('insufficient resources');
                 } else {
@@ -152,6 +153,25 @@
                     throw err;
                 }
             }
+        };
+
+        this.submitTurn = function(){
+            var playerName = game.player().name;
+
+            game.player().hasPlayed = true;
+
+            // compute production (@ each location) for this turn
+            for (locationIndex in game.player().locations){
+                game.selectedBodyID = locationIndex;
+                game.location().resources = sumResources(game.location().resources, game.productionLevels());
+            }
+
+            game.gameData.players = game.players;
+
+            $.post( "/uploadCurrentGame", game.gameData, function( response ) {
+                alert('game json uploaded');
+                location.reload();
+            });
         };
 
     }]);

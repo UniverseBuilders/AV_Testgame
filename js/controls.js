@@ -158,27 +158,6 @@ $("#region-chooser").on("change", function(evt){
 // ==============================
 // ===      turn handling     ===
 // ==============================
-/*
-$("#turn-submit-btn").on("click", function(evt){
-    var playerName = $("#player-selector").val();
-    var player = getPlayerData(playerName);
-
-    player.hasPlayed = true;
-
-    // compute production (@ each location) for this turn
-    for (locationIndex in player.locations){
-        var playerLocation = player.locations[locationIndex];
-        var deltaRes = getProduction( playerName, playerLocation.body, playerLocation.name );
-        playerLocation.resources = sumResources(playerLocation.resources, deltaRes);
-    }
-
-    $.post( "/uploadCurrentGame", window.gameData, function( response ) {
-        alert('game json uploaded');
-        location.reload();
-    });
-});
-*/
-
 nextTurn = function(){
     // moves to the next turn
     window.gameData["turn"] = parseInt(window.gameData["turn"]) + 1;
