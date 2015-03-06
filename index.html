@@ -29,6 +29,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <!-- app modules -->
     <script src="districtClaimer/districtClaimer.js"></script>
+    <script src="regionSelector/regionSelector.js"></script>
     <script type="text/javascript" src="js/AV_app.js"></script>
 
 </head>
@@ -64,32 +65,9 @@
             </div>
              <div id="main-controls" ng-show="playCtrl.player().hasPlayed == 'false'">
                 <div class="row">
-                    <div id="region-select-box" class="col-lg-3 col-md-6" >
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-globe fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right" ng-show="playCtrl.selectedBodyID >= 0">
-                                        <div class="huge">{{playCtrl.location().body}}</div>
-                                        <div><h3>Rocky Atmospheric</h3></div>
-                                        <div>Terrestrial Planet, 1.0 G, 16000 km</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="form-group">
-                                    <label>Choose Location</label>
-                                    <select id="body-chooser" class="form-control" ng-model="playCtrl.selectedBodyID">
-                                        <option ng-repeat="locale in playCtrl.player().locations" value={{$index}}>
-                                            {{locale.body}}:{{locale.name}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- region-select-box -->
+
+                    <region-selector class="col-lg-3 col-md-6"></region-selector>
+
                     <div class="col-md-4" ng-show="playCtrl.selectedBodyID >= 0">
                         <div class="panel panel-primary">
                             <div class="panel-heading">

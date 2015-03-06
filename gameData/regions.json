@@ -1,24 +1,29 @@
 {
     "Earth": {
         "orbit":[
-            "orbital region 1"
+            "low Earth orbit",
+            "Geo-synchronous"
         ],
         "atmospheric":[
-            "atm region 1"
+            "North America",
+            "Europe"
         ],
         "surface":[
-            "surface region 1"
+            "USA - SouthEast",
+            "USA - NorthWest",
+            "USA - NorthEast",
+            "USA - SouthWest",
+            "Europe"
         ]
     },
     "Moon": {
         "orbit":[
-            "orbital region 1"
-        ],
-        "atmospheric":[
-            "atm region 1"
+            "low Lunar orbit",
+            "Lunar-synchronous"
         ],
         "surface":[
-            "surface region 1"
+            "Mare Imbrium",
+            "Oceanus Procellarum"
         ]
     }
 }

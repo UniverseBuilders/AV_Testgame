@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('avCore', ['districtClaimer']);
+    var app = angular.module('avCore', ['districtClaimer', 'regionSelector']);
 
     var getProductionLevels = function(buildingName){
         // returns the resource production levels for named building from unitProductions lookupTable
@@ -82,7 +82,7 @@
     };
 
     app.controller('playerControls', ['$http', function($http) {
-        var game = this;
+        game = this;  //TODO: un-global this when not debugging
         this.players = [];
         //this.playerID = null; // currently selected player id in players array
         //this.selectedBodyID = null;
@@ -93,7 +93,7 @@
         });
         $http.get('/gameData/regions.json').success(function(data){
             game.regionData = data;
-        })
+        });
 
         this.player = function(){
             // returns player object for currently selected player
