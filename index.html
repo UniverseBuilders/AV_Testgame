@@ -63,15 +63,15 @@
             </div>
             <div id="main-controls" ng-show="playCtrl.player().hasPlayed == 'false'">
                 <div class="row">
-                    <div id="region-select-box" class="col-lg-3 col-md-6">
+                    <div id="region-select-box" class="col-lg-3 col-md-6" >
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
                                         <i class="fa fa-globe fa-5x"></i>
                                     </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">BODY</div>
+                                    <div class="col-xs-9 text-right" ng-show="playCtrl.selectedBodyID >= 0">
+                                        <div class="huge">{{playCtrl.location().body}}</div>
                                         <div><h3>Rocky Atmospheric</h3></div>
                                         <div>Terrestrial Planet, 1.0 G, 16000 km</div>
                                     </div>
@@ -79,15 +79,11 @@
                             </div>
                             <div class="panel-footer">
                                 <div class="form-group">
-                                    <label>Choose Body</label>
-                                    <select id="body-chooser" class="form-control">
-                                        <option>Earth</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Choose Territory</label>
-                                    <select id="region-chooser" class="form-control">
-                                        <option>Region 1</option>
+                                    <label>Choose Location</label>
+                                    <select id="body-chooser" class="form-control" ng-model="playCtrl.selectedBodyID">
+                                        <option ng-repeat="locale in playCtrl.player().locations" value={{$index}}>
+                                            {{locale.body}}:{{locale.name}}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -100,13 +96,13 @@
                             </div>
                             <div class="panel-footer">
                                 resources:
-                                <div id="resources-summary">loading...</div>
+                                <div id="resources-summary">{{playCtrl.location().resources}}</div>
                                 buildings:
-                                <div id="buildings-summary">loading...</div>
+                                <div id="buildings-summary">{{playCtrl.location().units}}</div>
                                 <div>
                                     <h3>resource balance:</h3>
                                     production:
-                                    <div id="production-summary">TODO</div>
+                                    <div id="production-summary">{{playCtrl.productionLevels()}}</div>
                                     resource in/out flow:
                                     <div id="resource-flow">TODO</div>
                                 </div>
@@ -119,7 +115,7 @@
                                 <div class="huge">Construction</div>
                             </div>
                             <div class="panel-footer">
-                                <button id="build-stuff-btn">Build</button>
+                                <button id="build-stuff-btn" ng-click="playCtrl.buildIt()">Build</button>
                                 <input type="number" id="build-amount" value="1" min="0" max="999"/>
                                 <!-- TODO: populate this after ajax call to load building stats -->
                                 <select id="selected-building">
@@ -177,7 +173,7 @@
             </div> <!-- /main-controls -->
             <div>
                 i:{{playCtrl.playerID}} <br>
-                n:{{playCtrl.players[playCtrl.playerID].name}} <br>
+                n:{{app.gameData.players[playCtrl.playerID].name}} <br>
                 p:{{playCtrl.player()}}
             </div>
         </div><!-- player-controls -->

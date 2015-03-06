@@ -57,101 +57,13 @@ getRegionPresence = function(params){
     }
 }
 
-addBuildings = function( playerName, bodyName, regionName, amount, buildingName){
-    var data = getRegionPresence({"playerName": playerName, "bodyName": bodyName, "regionName": regionName, "mutable": true});
-
-    // add building to count
-    if (typeof buildingName === undefined){
-        data.units[buildingName] = amount;
-    } else {
-        data.units[buildingName] = parseInt(data.units[buildingName]) + parseInt(amount);
-    }
-}
-
 buildOption = function(str){
     // returns HTML for an select option with given string as value & text
      return "<option value='" + str + "'>" + str + "</option>";
 }
 
-getProductionLevels = function(buildingName){
-    // returns the resource production levels for named building from unitProductions lookupTable
 
-    //TODO: use lookupTable instead of the following switch
 
-    switch(buildingName) {
-        case "greenhouse":
-            return {"biomass":2, "energy":-2};
-        case "power plant":
-            return {"energy": 1};
-        case "mine":
-            return {"biomass":-1, "energy":-1, "metal":1}
-        default:
-            throw new Error("unrecognized building name: " + buildingName);
-    }
-}
-
-getBuildingCost = function(buildingName){
-    // returns the cost to build given building type from table
-
-    // TODO: use lookupTable instead of following return
-
-    return {"metal":4, "biomass": 2}
-}
-
-sumResources = function(r1, r2){
-    // returns sum of resources in r2 to r1
-    // (for max efficiency r2 should be the shorter of the two lists)
-    var _res = {};
-    // res = copy(r1)
-    for (resKey in r1){
-        _res[resKey] = r1[resKey];
-    }
-    // res += r2
-    for (resKey in r2){
-        if (typeof _res[resKey] === "undefined"){
-            _res[resKey] = parseInt(r2[resKey]);
-        } else {
-            _res[resKey] = parseInt(_res[resKey]) + parseInt(r2[resKey]);
-        }
-    }
-    return _res;
-}
-
-subtractResources = function(r1, r2){
-    // returns r1 - r2
-    var _r2 = {};  // use a copy so we don't mutate original r2
-    for (resKey in r2){
-        _r2[resKey] = -parseInt(r2[resKey]);
-    }
-    return sumResources(r1, _r2);
-}
-
-resources_lessThanOrEq = function (r1, r2){
-    // true if r1 < r2 for all resource values
-    for (resKey in r1){
-        if (typeof r2[resKey] === "undefined"){
-            // r2 has none of this resource
-            return false;
-        } else {
-            if (parseInt(r1[resKey]) <= parseInt(r2[resKey]) ){
-                continue
-            } else {
-                // r2 has less of this resource than r1
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-scaleResources = function(resources, scalar){
-    // returns resources *= scalar
-    var res = {}
-    for (resKey in resources){
-        res[resKey] = parseInt(resources[resKey]) * scalar
-    }
-    return res
-}
 
 getProduction = function(playerName, bodyName, regionName){
     // returns current production levels for given player region
@@ -334,10 +246,6 @@ $("#build-stuff-btn").on("click", function(evt){
             throw err;
         }
     }
-});
-
-$(document).on("buildBuilding", function(evt, kwargs){
-    addBuildings(kwargs.playerName, kwargs.bodyName, kwargs.regionName, kwargs.amount, kwargs.buildingName);
 });
 
 $(document).on("buildBuilding", function(evt, kwargs){
