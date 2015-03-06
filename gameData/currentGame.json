@@ -14,7 +14,8 @@
             "districts":[
                 {
                     "name":"7ylopia",
-                    "type":"solar-power"
+                    "type":"solar-power",
+                    "upgradeSlots":[{},{},{}]
                 }
             ],
             "units": {
@@ -37,7 +38,8 @@
             "districts":[
                 {
                     "name":"Tomton",
-                    "type":"solar-power"
+                    "type":"solar-power",
+                    "upgradeSlots":[{},{},{}]
                 }
             ],
             "units": {
@@ -60,7 +62,8 @@
             "districts":[
                 {
                     "name":"New Ursus",
-                    "type":"solar-power"
+                    "type":"solar-power",
+                    "upgradeSlots":[{},{},{}]
                 }
             ],
             "units": {

@@ -6,8 +6,16 @@
         <div class="panel-footer">
             resources:
             <div id="resources-summary">{{playCtrl.location().resources}}</div>
-            buildings:
-            <div id="buildings-summary">{{playCtrl.location().units}}</div>
+            <div>
+                <h3>districts:</h3>
+                <div ng-repeat="district in playCtrl.location().districts">
+                    <h4>{{district.name}} - {{district.type}}</h4>
+                    upgrade slots:
+                    <div ng-repeat="upgrade in district.upgradeSlots">
+                        {{upgrade}}
+                    </div>
+                </div>
+            </div>
             <div>
                 <h3>resource balance:</h3>
                 production:
@@ -15,6 +23,8 @@
                 resource in/out flow:
                 <div id="resource-flow">TODO</div>
             </div>
+            "work-units":
+            <div id="buildings-summary">{{playCtrl.location().units}}</div>
         </div>
     </div>
 </div>

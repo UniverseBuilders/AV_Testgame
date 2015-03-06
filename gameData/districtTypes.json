@@ -1,9 +1,19 @@
 {
     "solar-power": {
-        "name": "solar power plant"
+        "name": "solar power plant",
+        "upgrades": [
+            "reflectors",
+            "shiny things"
+        ],
+        "upgradeSlots": 3,
+
     },
     "habitation":{
-        "name": "habitation module"
+        "name": "habitation module",
+        "upgrades": [
+            "beds",
+            "bunk beds"
+        ]
     }
 
 }
