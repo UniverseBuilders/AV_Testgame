@@ -1,0 +1,20 @@
+<div ng-controller="regionOverviewController as regionViewCtrl" ng-show="regionViewCtrl.hasDistrictIn(playCtrl.player(), playCtrl.selectedTerritory)">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="huge">Region Overview</div>
+        </div>
+        <div class="panel-footer">
+            resources:
+            <div id="resources-summary">{{playCtrl.location().resources}}</div>
+            buildings:
+            <div id="buildings-summary">{{playCtrl.location().units}}</div>
+            <div>
+                <h3>resource balance:</h3>
+                production:
+                <div id="production-summary">{{playCtrl.productionLevels()}}</div>
+                resource in/out flow:
+                <div id="resource-flow">TODO</div>
+            </div>
+        </div>
+    </div>
+</div>

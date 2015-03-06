@@ -30,6 +30,7 @@
     <!-- app modules -->
     <script src="districtClaimer/districtClaimer.js"></script>
     <script src="regionSelector/regionSelector.js"></script>
+    <script src="regionOverview/regionOverview.js"></script>
     <script type="text/javascript" src="js/AV_app.js"></script>
 
 </head>
@@ -68,26 +69,8 @@
 
                     <region-selector class="col-lg-3 col-md-6"></region-selector>
 
-                    <div class="col-md-4" ng-show="playCtrl.selectedBodyID >= 0">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="huge">Region Overview</div>
-                            </div>
-                            <div class="panel-footer">
-                                resources:
-                                <div id="resources-summary">{{playCtrl.location().resources}}</div>
-                                buildings:
-                                <div id="buildings-summary">{{playCtrl.location().units}}</div>
-                                <div>
-                                    <h3>resource balance:</h3>
-                                    production:
-                                    <div id="production-summary">{{playCtrl.productionLevels()}}</div>
-                                    resource in/out flow:
-                                    <div id="resource-flow">TODO</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <region-overview class="col-md-4"></region-overview>
+
                     <div class="col-md-5" ng-show="playCtrl.selectedBodyID >= 0">
                         <div id="construction-box" class="panel panel-primary">
                             <div class="panel-heading">

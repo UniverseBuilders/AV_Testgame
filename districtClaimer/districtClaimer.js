@@ -9,7 +9,7 @@
     });
 
     app.controller('districtClaimController', function(){
-        claimCtrl = this;
+        var claimCtrl = this;
 
         //console.log(game.regionData);
     });

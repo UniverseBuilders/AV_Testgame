@@ -9,7 +9,7 @@
     });
 
     app.controller('regionSelectController', function(){
-        regionCtrl = this;
+        var regionCtrl = this;
 
         //console.log(game.regionData);
     });

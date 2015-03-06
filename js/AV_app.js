@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('avCore', ['districtClaimer', 'regionSelector']);
+    var app = angular.module('avCore', ['districtClaimer', 'regionSelector', 'regionOverview']);
 
     var getProductionLevels = function(buildingName){
         // returns the resource production levels for named building from unitProductions lookupTable
@@ -105,10 +105,16 @@
         };
         this.location = function(){
             // returns location object currently selected
-            if (typeof game.selectedBodyID == "undefined"){
+            if (typeof game.selectedBodyID == "undefined"
+                || typeof game.selectedRegionClass === "undefined"
+                || typeof game.selectedTerritory === "undefined"){
                 ;//console.log('WARN: selectedBodyID undefined');
             } else {
-                return game.players[game.playerID].locations[game.selectedBodyID];
+                for (locationID in game.player().locations){
+                    if (game.players[game.playerID].locations[locationID].territoryName === game.selectedTerritory){
+                        return game.players[game.playerID].locations[locationID];
+                    }
+                }
             }
         };
         this.productionLevels = function(){
