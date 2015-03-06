@@ -89,7 +89,7 @@
                             </div>
                         </div>
                     </div> <!-- region-select-box -->
-                    <div class="col-md-4">
+                    <div class="col-md-4" ng-show="playCtrl.selectedBodyID >= 0">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="huge">Region Overview</div>
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-5" ng-show="playCtrl.selectedBodyID >= 0">
                         <div id="construction-box" class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="huge">Construction</div>
