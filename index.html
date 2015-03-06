@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" ng-app="avCore">
 <head>
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -11,20 +11,24 @@
 
     </title>
 
+    <!-- ### STYLESHEETS ### -->
     <!-- Bootstrap core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
     <!-- adminLTE to make things pretty -->
     <link href="css/AdminLTE.css" rel="stylesheet" type="text/css">
-
     <!-- also sb-admin-2 CSS -->
     <link href="css/sb-admin-2.css" rel="stylesheet">
-
     <!-- Custom Fonts / icons -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <!-- ### JS LIBS ### -->
     <!-- jquery -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- angular core -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <!-- app modules -->
+    <script type="text/javascript" src="js/AV_app.js"></script>
 
 </head>
 <body>
@@ -35,140 +39,148 @@
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <label>Player</label>
-                    <select id="player-selector" class="form-control">
-                        <option selected="selected" value="0">- Select -</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div id="turn-complete" style="display:none;">
+        <div id="player-controls" ng-controller="playerControls as playCtrl">
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-danger huge">
-                        Turn already completed. Cannot take further actions.
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Choose Your Player:</label>
+                        <select id="player-selector" class="form-control" ng-model="playCtrl.playerID" placeholder="choose your player">
+                            <option ng-repeat="player in playCtrl.players" value={{$index}}>
+                                {{player.name}}
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="main-controls" style="display:none;">
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-globe fa-5x"></i>
+            <div id="turn-complete" ng-show="playCtrl.player().hasPlayed == 'true'">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-danger huge">
+                            Turn already completed. Cannot take further actions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="main-controls" ng-show="playCtrl.player().hasPlayed == 'false'">
+                <div class="row">
+                    <div id="region-select-box" class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-globe fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">BODY</div>
+                                        <div><h3>Rocky Atmospheric</h3></div>
+                                        <div>Terrestrial Planet, 1.0 G, 16000 km</div>
+                                    </div>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">BODY</div>
-                                    <div><h3>Rocky Atmospheric</h3></div>
-                                    <div>Terrestrial Planet, 1.0 G, 16000 km</div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="form-group">
+                                    <label>Choose Body</label>
+                                    <select id="body-chooser" class="form-control">
+                                        <option>Earth</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Choose Territory</label>
+                                    <select id="region-chooser" class="form-control">
+                                        <option>Region 1</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-footer">
-                            <div class="form-group">
-                                <label>Choose Body</label>
-                                <select id="body-chooser" class="form-control">
-                                    <option>Earth</option>
+                    </div> <!-- region-select-box -->
+                    <div class="col-md-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="huge">Region Overview</div>
+                            </div>
+                            <div class="panel-footer">
+                                resources:
+                                <div id="resources-summary">loading...</div>
+                                buildings:
+                                <div id="buildings-summary">loading...</div>
+                                <div>
+                                    <h3>resource balance:</h3>
+                                    production:
+                                    <div id="production-summary">TODO</div>
+                                    resource in/out flow:
+                                    <div id="resource-flow">TODO</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div id="construction-box" class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="huge">Construction</div>
+                            </div>
+                            <div class="panel-footer">
+                                <button id="build-stuff-btn">Build</button>
+                                <input type="number" id="build-amount" value="1" min="0" max="999"/>
+                                <!-- TODO: populate this after ajax call to load building stats -->
+                                <select id="selected-building">
+                                    <option value="greenhouse">Greenhouse</option>
+                                    <option value="power plant">Power Plant</option>
+                                    <option value="mine">Metal Mine</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Choose Territory</label>
-                                <select id="region-chooser" class="form-control">
-                                    <option>Region 1</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="huge">Region Overview</div>
-                        </div>
-                        <div class="panel-footer">
-                            resources:
-                            <div id="resources-summary">loading...</div>
-                            buildings:
-                            <div id="buildings-summary">loading...</div>
-                            <div>
-                                <h3>resource balance:</h3>
-                                production:
-                                <div id="production-summary">TODO</div>
-                                resource in/out flow:
-                                <div id="resource-flow">TODO</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div id="construction-box" class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="huge">Construction</div>
-                        </div>
-                        <div class="panel-footer">
-                            <button id="build-stuff-btn">Build</button>
-                            <input type="number" id="build-amount" value="1" min="0" max="999"/>
-                            <!-- TODO: populate this after ajax call to load building stats -->
-                            <select id="selected-building">
-                                <option value="greenhouse">Greenhouse</option>
-                                <option value="power plant">Power Plant</option>
-                                <option value="mine">Metal Mine</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
+                <!-- /.row -->
 
-            <div class="row">
-                <div id="turn-submit-box" class="col-xs-12">
-                    <div class="box box-solid box-warning">
-                        <div class="box-header">
-                            <h3 class="box-title">turn summary</h3>
-                        </div>
-                        <div class="box-body">
-                            <div id="actions-list">
-                                <li>TURN START</li>
+                <div class="row">
+                    <div id="turn-submit-box" class="col-xs-12">
+                        <div class="box box-solid box-warning">
+                            <div class="box-header">
+                                <h3 class="box-title">turn summary</h3>
                             </div>
-                            <button id="turn-submit-btn">submit turn</button>
+                            <div class="box-body">
+                                <div id="actions-list">
+                                    <li>TURN START</li>
+                                </div>
+                                <button id="turn-submit-btn">submit turn</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="box box-solid box-success">
-                        <div class="box-header">
-                            <h3 class="box-title">selected player data</h3>
-                        </div>
-                        <div class="box-body">
-                            <div id="raw-player-save" style="font-family:monospace;">
-                                loading...
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box box-solid box-success">
+                            <div class="box-header">
+                                <h3 class="box-title">selected player data</h3>
+                            </div>
+                            <div class="box-body">
+                                <div id="raw-player-save" style="font-family:monospace;">
+                                    loading...
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="box box-solid box-primary">
-                        <div class="box-header">
-                            <h3 class="box-title">current raw game save json</h3>
-                        </div>
-                        <div class="box-body">
-                            <div id="raw-save" style="font-family:monospace;">
-                                loading...
+                        <div class="box box-solid box-primary">
+                            <div class="box-header">
+                                <h3 class="box-title">current raw game save json</h3>
                             </div>
-                            <button onclick="showRawSave('#raw-save')">refresh</button>
+                            <div class="box-body">
+                                <div id="raw-save" style="font-family:monospace;">
+                                    loading...
+                                </div>
+                                <button onclick="showRawSave('#raw-save')">refresh</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div> <!-- /main-controls -->
+            <div>
+                i:{{playCtrl.playerID}} <br>
+                n:{{playCtrl.players[playCtrl.playerID].name}} <br>
+                p:{{playCtrl.player()}}
             </div>
-        </div> <!-- /main-controls -->
+        </div><!-- player-controls -->
         <div class="col-md-12">
             <div id="admin-controls" class="box box-solid box-danger">
                 <div class="box-header">

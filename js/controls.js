@@ -169,47 +169,6 @@ getProduction = function(playerName, bodyName, regionName){
 // =============================
 
 
-// ================================
-// === choose-a-player dropdown ===
-// ================================
-$(document).on("gameDataLoaded", function () {
-    var listItems = '<option selected="selected" value="0">- Select -</option>';
-
-    for (var i = 0; i < window.gameData.players.length; i++) {
-         listItems += buildOption(window.gameData.players[i].name);
-    }
-
-    $("#player-selector").html(listItems);
-});
-
-$("#player-selector").on("change", function(evt){
-    var player = $("#player-selector").val();
-    try{
-        var playerData = getPlayerData(player);
-        $("#raw-player-save").html( JSON.stringify(playerData));
-        $("#body-chooser").trigger("change");
-        if (!playerData.hasPlayed || playerData.hasPlayed == "false"){
-            $("#turn-complete").hide();
-            $("#main-controls").show();
-            $("#turn-submit-box").show();
-            $("#construction-box").show();
-        } else {
-            $("#turn-complete").show();
-            $("#main-controls").show();
-            $("#turn-submit-box").hide();
-            $("#construction-box").hide();
-        }
-
-    } catch(err){
-        $("#main-controls").hide();
-        $("#raw-player-save").html( "ERR: " +err.message );
-        throw err;
-    }
-});
-
-// ================================
-
-
 // ==============================
 // === choose-a-body dropdown ===
 // ==============================
@@ -218,6 +177,7 @@ $.get( "gameData/regions.json", function( data ) {
     $(document).trigger("regionsLoaded");
 });
 
+/*
 $(document).on("regionsLoaded", function () {
     var listItems = '';
 
@@ -247,12 +207,14 @@ $("#body-chooser").on("change", function(evt){
     $("#region-chooser").html(listItems);
     $("#region-chooser").trigger("change");
 });
+*/
 // ==============================
 
 
 // ==============================
 // === resource production    ===
 // ==============================
+/*
 $("#region-chooser").on("change", function(evt){
     var player = $("#player-selector").val();
     var body = $("#body-chooser").val();
@@ -260,12 +222,14 @@ $("#region-chooser").on("change", function(evt){
 
     $("#production-summary").html(JSON.stringify(getProduction( player, body, region )));
 });
+*/
 // ==============================
 
 
 // ==============================
 // ===      Region Summary    ===
 // ==============================
+/*
 $("#region-chooser").on("change", function(evt){
     var player = $("#player-selector").val();
     var body = $("#body-chooser").val();
@@ -276,11 +240,13 @@ $("#region-chooser").on("change", function(evt){
     $("#resources-summary").html(JSON.stringify(regionalData.resources));
     $("#buildings-summary").html(JSON.stringify(regionalData.units));
 });
+*/
 // ==============================
 
 // ==============================
 // ===      turn handling     ===
 // ==============================
+/*
 $("#turn-submit-btn").on("click", function(evt){
     var playerName = $("#player-selector").val();
     var player = getPlayerData(playerName);
@@ -299,6 +265,7 @@ $("#turn-submit-btn").on("click", function(evt){
         location.reload();
     });
 });
+*/
 
 nextTurn = function(){
     // moves to the next turn
@@ -315,6 +282,7 @@ nextTurn = function(){
     });
 }
 
+/*
 $(document).on("gameDataLoaded", function(evt){
     $('#current-turn').html(window.gameData.turn);
 });
@@ -334,11 +302,13 @@ $(document).on("gameDataLoaded", function(evt){
 
     $('#player-completion-list').html(html);
 });
+*/
 // ==============================
 
 // ==============================
 // ===    construction        ===
 // ==============================
+/*
 $("#build-stuff-btn").on("click", function(evt){
     var amount = $("#build-amount").val();
     var building = $("#selected-building").val();
@@ -373,10 +343,8 @@ $(document).on("buildBuilding", function(evt, kwargs){
 $(document).on("buildBuilding", function(evt, kwargs){
     $("#actions-list").append("<li>build " + kwargs.amount + " " + kwargs.buildingName + "(s) @ " + kwargs.regionName + " on " + kwargs.bodyName);
 });
+*/
 
-// reset the action list on player switch WARN: this doesn't actually undo the actions
-$("#player-selector").on("change", function(evt){
-    $("#actions-list").html("<li>TURN START</li>");
-});
+
 // ==============================
 
