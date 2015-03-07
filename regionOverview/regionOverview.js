@@ -26,4 +26,29 @@
             }
         };
     });
+
+    app.controller('districtController', ['$http', function($http){
+        var distCtrl = this;
+        distCtrl.showUpgrades = false;
+        distCtrl.selectedUpgrade = null;
+
+        $http.get('/gameData/districtTypes.json').success(function(data){
+            distCtrl.districtData = data;
+        });
+
+        distCtrl.getPossibleUpgrades = function(type){
+            // returns array of upgrades possible given district type
+            if (typeof distCtrl.districtData == 'undefined'){
+                console.log('districtData undefined');
+            } else {
+                return distCtrl.districtData[type].upgrades;
+            }
+        };
+
+        distCtrl.buildUpgrade = function(district, uIndex){
+            // builds the selectedUpgrade in upgrade slot [uIndex] in the given district
+            console.log('adding upgrade ', distCtrl.selectedUpgrade, ' to district ', uIndex, ' of ', location.territoryName);
+            district.upgradeSlots[uIndex] = {'type':'TESSST upgrade'};
+        };
+    }]);
 })();

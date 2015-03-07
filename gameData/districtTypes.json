@@ -5,15 +5,15 @@
             "reflectors",
             "shiny things"
         ],
-        "upgradeSlots": 3,
-
+        "upgradeSlots": 3
     },
     "habitation":{
         "name": "habitation module",
         "upgrades": [
             "beds",
             "bunk beds"
-        ]
+        ],
+        "upgradeSlots": 3
     }
 
 }

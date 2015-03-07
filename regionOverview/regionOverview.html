@@ -9,10 +9,21 @@
             <div>
                 <h3>districts:</h3>
                 <div ng-repeat="district in playCtrl.location().districts">
-                    <h4>{{district.name}} - {{district.type}}</h4>
+                    <h4>{{district.name}} ({{district.type}})</h4>
                     upgrade slots:
-                    <div ng-repeat="upgrade in district.upgradeSlots">
-                        {{upgrade}}
+                    <div ng-repeat="slot in district.upgradeSlots" ng-controller="districtController as distCtrl">
+                        {{$index}}. {{slot}} <span ng-show="!slot.type"> (EMPTY) </span>
+                        <form ng-show="!slot.type">
+                            add upgrade:
+                            <span ng-repeat="upgrade in distCtrl.getPossibleUpgrades(district.type)">
+                                <button ng-click="distCtrl.selectedUpgrade=upgrade">{{upgrade}}</button>
+                            </span>
+                            <div ng-show="distCtrl.selectedUpgrade">
+                                cost to build {{distCtrl.selectedUpgrade}}:
+                                TODO
+                                <button ng-click="distCtrl.buildUpgrade(district, $index)">build it</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

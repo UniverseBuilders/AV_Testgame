@@ -95,7 +95,7 @@
             game.regionData = data;
         });
 
-        $http.get('./gameData/districtTypes.json').success(function(data){
+        $http.get('/gameData/districtTypes.json').success(function(data){
             game.districtData = data;
         });
 
