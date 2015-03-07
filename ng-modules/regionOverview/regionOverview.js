@@ -27,18 +27,11 @@
         };
     });
 
-    app.controller('districtController', ['$http', function($http){
+    app.controller('districtController', ['gameData', function(gameData){
         var distCtrl = this;
         distCtrl.showUpgrades = false;
         distCtrl.selectedUpgrade = null;
         distCtrl.upgradeObj = {};  // selected upgrade object from /gameData/upgrades.json
-
-        $http.get('/gameData/districtTypes.json').success(function(data){
-            distCtrl.districtData = data;
-        });
-        $http.get('/gameData/upgrades.json').success(function(data){
-            distCtrl.upgradeData = data;
-        });
 
         distCtrl.setSelectedUpgrade = function(newUpgKey){
             // sets the selectedUpgrade and loads the appropriate upgradeObj
@@ -48,19 +41,19 @@
 
         distCtrl.getPossibleUpgrades = function(type){
             // returns array of upgrades possible given district type
-            if (typeof distCtrl.districtData == 'undefined'){
+            if (typeof gameData.districtData == 'undefined'){
                 console.log('districtData undefined');
             } else {
-                return distCtrl.districtData[type].upgrades;
+                return gameData.districtData[type].upgrades;
             }
         };
 
         distCtrl.getUpgrade = function(key){
             // returns upgrade object for given key
-            if (typeof distCtrl.upgradeData == 'undefined'){
+            if (typeof gameData.upgradeData == 'undefined'){
                 console.log('upgradeData undefined');
             } else {
-                return distCtrl.upgradeData[key];
+                return gameData.upgradeData[key];
             }
         };
 

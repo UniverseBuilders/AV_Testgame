@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('avCore', ['districtClaimer', 'regionSelector', 'regionOverview']);
+    var app = angular.module('avCore', ['gameDataService', 'districtClaimer', 'regionSelector', 'regionOverview']);
 
     var getProductionLevels = function(buildingName){
         // returns the resource production levels for named building from unitProductions lookupTable
@@ -81,12 +81,16 @@
         return sumResources(r1, _r2);
     };
 
-    app.controller('playerControls', ['$http', function($http) {
+    app.controller('playerControls', ['gameData', '$http', function(gameData, $http) {
         game = this;  //TODO: un-global this when not debugging
         this.players = [];
         //this.playerID = null; // currently selected player id in players array
         //this.selectedBodyID = null;
 
+        // NOTE: would love to use gameData service here, but the first call returns faster than the http requests
+        //        which means that we would get an empty object. Dunno how to fix this. This also means that you should
+        //        not remove the 'gameData' dependency though you can't use it in this scope; leaving it here means that
+        //        it will work in other modules.
         $http.get('/gameData/currentGame.json').success(function(data){
             game.players = data.players;
             game.gameData = data;
