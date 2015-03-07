@@ -12,15 +12,16 @@
                     <h4>{{district.name}} ({{district.type}})</h4>
                     upgrade slots:
                     <div ng-repeat="slot in district.upgradeSlots" ng-controller="districtController as distCtrl">
-                        {{$index}}. {{slot}} <span ng-show="!slot.type"> (EMPTY) </span>
-                        <form ng-show="!slot.type">
+                        {{$index}}. {{slot}} <span ng-show="!slot.name"> (EMPTY) </span>
+                        <form ng-show="!slot.name">
                             add upgrade:
-                            <span ng-repeat="upgrade in distCtrl.getPossibleUpgrades(district.type)">
-                                <button ng-click="distCtrl.selectedUpgrade=upgrade">{{upgrade}}</button>
+                            <span ng-repeat="upgradeKey in distCtrl.getPossibleUpgrades(district.type)">
+                                <button ng-click="distCtrl.setSelectedUpgrade(upgradeKey)">{{distCtrl.getUpgrade(upgradeKey).name}}</button>
                             </span>
                             <div ng-show="distCtrl.selectedUpgrade">
-                                cost to build {{distCtrl.selectedUpgrade}}:
-                                TODO
+                                cost to build {{distCtrl.upgradeObj.name}}:
+                                {{distCtrl.upgradeObj.cost}}
+                                <br> effect: {{distCtrl.upgradeObj.effect}}
                                 <button ng-click="distCtrl.buildUpgrade(district, $index)">build it</button>
                             </div>
                         </form>
