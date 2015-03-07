@@ -22,7 +22,7 @@
                                 cost to build {{distCtrl.upgradeObj.name}}:
                                 {{distCtrl.upgradeObj.cost}}
                                 <br> effect: {{distCtrl.upgradeObj.effect}}
-                                <button ng-click="distCtrl.buildUpgrade(district, $index)">build it</button>
+                                <button ng-click="distCtrl.buildUpgrade(playCtrl.location(), district, $index)">build it</button>
                             </div>
                         </form>
                     </div>

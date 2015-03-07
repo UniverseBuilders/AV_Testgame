@@ -57,9 +57,13 @@
             }
         };
 
-        distCtrl.buildUpgrade = function(district, uIndex){
+        distCtrl.buildUpgrade = function(location, district, uIndex){
             // builds the selectedUpgrade in upgrade slot [uIndex] in the given district
-            console.log('adding upgrade ', distCtrl.selectedUpgrade, ' to district ', uIndex, ' of ', location.territoryName);
+            console.log('adding upgrade ', distCtrl.selectedUpgrade, ' to slot ', uIndex, ' of ', district.name, ' in ', location.territoryName);
+
+            //TODO:
+            //location.resources = subtractResources(location.resources, distCtrl.upgradeObj.cost);
+
             district.upgradeSlots[uIndex] = distCtrl.upgradeObj;
         };
     }]);

@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('avCore', ['gameDataService', 'districtClaimer', 'regionSelector', 'regionOverview']);
+    var app = angular.module('avCore', ['resources', 'gameDataService', 'districtClaimer', 'regionSelector', 'regionOverview']);
 
     var getProductionLevels = function(buildingName){
         // returns the resource production levels for named building from unitProductions lookupTable
@@ -54,24 +54,6 @@
         return {"metal":4, "biomass": 2}
     };
 
-    var resources_lessThanOrEq = function (r1, r2){
-        // true if r1 < r2 for all resource values
-        for (resKey in r1){
-            if (typeof r2[resKey] === "undefined"){
-                // r2 has none of this resource
-                return false;
-            } else {
-                if (parseInt(r1[resKey]) <= parseInt(r2[resKey]) ){
-                    continue;
-                } else {
-                    // r2 has less of this resource than r1
-                    return false;
-                }
-            }
-        }
-        return true;
-    };
-
     var subtractResources = function(r1, r2){
         // returns r1 - r2
         var _r2 = {};  // use a copy so we don't mutate original r2
@@ -81,7 +63,7 @@
         return sumResources(r1, _r2);
     };
 
-    app.controller('playerControls', ['gameData', '$http', function(gameData, $http) {
+    app.controller('playerControls', ['gameData', '$http', 'res', function(gameData, $http) {
         game = this;  //TODO: un-global this when not debugging
         this.players = [];
         //this.playerID = null; // currently selected player id in players array
@@ -145,7 +127,7 @@
             var building = $("#selected-building").val();
             try {
                 var cost = scaleResources(getBuildingCost(building), amount);
-                if (!resources_lessThanOrEq(cost, game.location().resources)) {
+                if (!res.resources_lessThanOrEq(cost, game.location().resources)) {
                     throw new Error('insufficient resources');
                 } else {
                     game.location().resources = subtractResources(game.location().resources, cost);
