@@ -4,7 +4,7 @@
     app.directive("regionSelector", function() {
         return {
             restrict: 'E',
-            templateUrl: "regionSelector/regionSelector.html"
+            templateUrl: "ng-modules/regionSelector/regionSelector.html"
         };
     });
 

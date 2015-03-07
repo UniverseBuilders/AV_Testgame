@@ -4,7 +4,7 @@
     app.directive("districtClaimer", function() {
         return {
             restrict: 'E',
-            templateUrl: "districtClaimer/districtClaimer.html"
+            templateUrl: "ng-modules/districtClaimer/districtClaimer.html"
         };
     });
 

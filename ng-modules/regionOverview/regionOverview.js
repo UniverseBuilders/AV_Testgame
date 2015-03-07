@@ -4,7 +4,7 @@
     app.directive("regionOverview", function() {
         return {
             restrict: 'E',
-            templateUrl: "regionOverview/regionOverview.html"
+            templateUrl: "ng-modules/regionOverview/regionOverview.html"
         };
     });
 

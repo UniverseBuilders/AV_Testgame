@@ -1,0 +1,46 @@
+{
+    "reflectors": {
+        "name": "Reflector things.",
+        "description": "This thing does stuff.",
+        "cost": {
+            "metal": 4
+        },
+        "effect":{
+            "energy": 2,
+            "biomass": -1
+        }
+    },
+    "shiny things": {
+        "name": "Shiny Things",
+        "description": "Bling bling.",
+        "cost": {
+            "metal": 4
+        },
+        "effect":{
+            "energy": 2,
+            "biomass": -1
+        }
+    },
+    "beds": {
+        "name": "place to sleep",
+        "description": "sleep? who needs it?",
+        "cost": {
+            "metal": 4
+        },
+        "effect":{
+            "energy": 2,
+            "biomass": -1
+        }
+    },
+    "bunk beds": {
+        "name": "Beds which are bunked",
+        "description": "Think of all the room for activities.",
+        "cost": {
+            "metal": 4
+        },
+        "effect":{
+            "energy": 2,
+            "biomass": -1
+        }
+    }
+}
