@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module('districtClaimer', []);
+    var app = angular.module('districtClaimer', ['gameDataService', 'builder']);
 
     app.directive("districtClaimer", function() {
         return {
@@ -8,14 +8,20 @@
         };
     });
 
-    app.controller('districtClaimController', function(){
+    app.controller('districtClaimController', ['gameData', 'costOf', function(gameData, costOf){
         var vm = this;
         this.launchPointID = 0;
         this.newDistrictName = "Springfield";
-        this.newDistrictType = "";
+        this.newDistrictKey = "";
+        this.district = {};
 
+        this.getCost = function(loc){
+            // returns the cost to build a new district of type given by newDistrictKey
+            return costOf.district(vm.district, loc);
+        };
         this.claimDistrict= function(gameO){
             // establishes a new district
+            var district = gameData.districtData[vm.newDistrictKey];  // district def object
             if ( typeof gameO.location() === "undefined"){
                 // player doesn't have anything @ this location yet
                 gameO.player().locations.push(
@@ -28,7 +34,7 @@
                             "energy": "0"
                         },
                         "districts":[
-                            vm.getNewDistrict()
+                            vm.makeNewDistrict(district)
                         ],
                             "units": {
                                 "greenhouse": "0",
@@ -38,34 +44,30 @@
                     }
                 );
             } else {
-                gameO.location().districts.push(vm.getNewDistrict());
+                gameO.location().districts.push(vm.makeNewDistrict(district));
             }
-            //TODO: subtract cost of establishment from lauchPoint
+            //TODO: subtract cost of establishment from launchPoint
             //gameO.player().locations[vm.launchPointID].resources -= cost
 
             // change district name to reduce chance of duplicate names
             this.newDistrictName = 'New ' + this.newDistrictName;
         };
-        this.getNewDistrict = function(){
-            // returns new district object
+        this.makeNewDistrict = function(distr){
+            // returns new district object for the game save from given district definition
             return {
-                "name":vm.newDistrictName,
-                "type":vm.newDistrictType,
-                "upgradeSlots":vm.getEmptyDistrictUpgradeSlots()
+                "name": vm.newDistrictName,
+                "type": vm.newDistrictKey,
+                "upgrades": distr.upgrades,
+                "upgradeSlots": vm.getEmptyDistrictUpgradeSlots(distr.upgradeSlots)
             }
         }
-        this.getEmptyDistrictUpgradeSlots = function(){
+        this.getEmptyDistrictUpgradeSlots = function(size){
             // returns array of empty object of appropriate size
             var slots = [];
-            for (var i = 0; i < vm.getDistrictUpgradeSlotCount(); i++){
+            for (var i = 0; i < size; i++){
                 slots.push({});
             }
             return slots;
         };
-        this.getDistrictUpgradeSlotCount = function(){
-            // returns number of upgrade slots the new district will have (based on district type)
-            //TODO:
-            return 3;
-        };
-    });
+    }]);
 })();

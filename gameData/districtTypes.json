@@ -6,7 +6,10 @@
             "shiny things"
         ],
         "upgradeSlots": 3,
-        "baseCost":{"metal":3}
+        "baseCost":{"metal":3},
+        "allowed":{
+          "subterrain":false
+        }
     },
     "habitation":{
         "name": "habitation module",
@@ -14,8 +17,11 @@
             "beds",
             "bunk beds"
         ],
-        "upgradeSlots": 3,
-        "baseCost":{"metal":3}
+        "upgradeSlots": 5,
+        "baseCost":{"metal":5},
+        "allowed":{
+          "vacuum":false
+        }
     }
 
 }

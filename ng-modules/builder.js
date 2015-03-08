@@ -24,6 +24,7 @@
             var cost = baseCost;
             return cost;
         };
+        return costOf;
     }]);
 
     app.service('build', function() {

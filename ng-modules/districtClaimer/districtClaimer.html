@@ -22,13 +22,15 @@
             </div>
             <div class="form-group">
                 <label>District Type</label>
-                <select class="form-control" ng-model="claimCtrl.newDistrictType">
+                <select class="form-control" ng-model="claimCtrl.newDistrictKey"
+                        ng-change="claimCtrl.district = playCtrl.districtData[claimCtrl.newDistrictKey]">
                     <option ng-repeat="($key, districtType) in playCtrl.districtData" value={{$key}}>
                         {{districtType.name}}
                     </option>
                 </select>
             </div>
-            Cost to Establish: TODO <br>
+            {{claimCtrl.district}}
+            Cost to Establish: TODO<br>
             <div class="form-group">
                 <label>District Name</label>
                 <input class="form-control" type="text" ng-model="claimCtrl.newDistrictName"/>

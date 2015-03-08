@@ -8,7 +8,8 @@
         "effect":{
             "energy": 2,
             "biomass": -1
-        }
+        },
+        "allowed":{}
     },
     "shiny things": {
         "name": "Shiny Things",
@@ -19,7 +20,8 @@
         "effect":{
             "energy": 2,
             "biomass": -1
-        }
+        },
+        "allowed":{}
     },
     "beds": {
         "name": "place to sleep",
@@ -30,7 +32,8 @@
         "effect":{
             "energy": 2,
             "biomass": -1
-        }
+        },
+        "allowed":{}
     },
     "bunk beds": {
         "name": "Beds which are bunked",
@@ -41,6 +44,7 @@
         "effect":{
             "energy": 2,
             "biomass": -1
-        }
+        },
+        "allowed":{}
     }
 }
