@@ -2,6 +2,7 @@
     var app = angular.module('resources', []);
 
     app.service('resMath', function() {
+        // resMath service adds functions to do math with resource objects
         var resMath = {};
         resMath.lessThanOrEq = function (r1, r2){
             // true if r1 < r2 for all resource values
@@ -21,7 +22,7 @@
             return true;
         };
 
-        resMath.add = resMath.sum = function(r1, r2){
+        resMath.add = resMath.sum = resMath.plus = function(r1, r2){
             // returns sum of resources in r2 to r1
             // (for max efficiency r2 should be the shorter of the two lists)
             var _res = {};
@@ -40,7 +41,7 @@
             return _res;
         };
 
-        resMath.subtract = resMath.difference = function(r1, r2){
+        resMath.subtract = resMath.difference = resMath.minus = function(r1, r2){
             // returns r1 - r2
             var _r2 = {};  // use a copy so we don't mutate original r2
             for (resKey in r2){
@@ -49,7 +50,7 @@
             return resMath.sum(r1, _r2);
         };
 
-        resMath.scale = resMath.multiply = function(resources, scalar){
+        resMath.scale = resMath.multiply = resMath.times = function(resources, scalar){
             // returns resources *= scalar
             var res = {}
             for (resKey in resources){
@@ -60,4 +61,5 @@
 
         return resMath;
     });
+
 }());

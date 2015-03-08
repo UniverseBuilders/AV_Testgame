@@ -18,14 +18,6 @@
         }
     };
 
-    var getBuildingCost = function(buildingName){
-        // returns the cost to build given building type from table
-
-        // TODO: use lookupTable instead of following return
-
-        return {"metal":4, "biomass": 2}
-    };
-
     app.controller('playerControls', ['gameData', '$http', 'resMath', function(gameData, $http, resMath) {
         game = this;  //TODO: un-global this when not debugging
         this.players = [];
@@ -83,32 +75,6 @@
                 return production;
             } else {
                 ; //console.log('WARN: location undefined');
-            }
-        };
-        this.buildIt = function() {
-            var amount = $("#build-amount").val();
-            var building = $("#selected-building").val();
-            try {
-                var cost = resMath.scale(getBuildingCost(building), amount);
-                if (!resMath.lessThanOrEq(cost, game.location().resources)) {
-                    throw new Error('insufficient resources');
-                } else {
-                    game.location().resources = resMath.subtract(game.location().resources, cost);
-                }
-                // add building to count
-                if (typeof game.location().units[building] === undefined){
-                    game.location().units[building] = amount;
-                } else {
-                    game.location().units[building] = parseInt(game.location().units[building]) + parseInt(amount);
-                }
-                $("#actions-list").append("<li>build " + amount + " " + building + "(s) @ " + game.location().name + " on " + game.location().body);
-            } catch (err) {
-                if (err.message == "player has no presence in this region"
-                    || err.message == "insufficient resources") {
-                    alert('not enough resources to build there');
-                } else {
-                    throw err;
-                }
             }
         };
 
