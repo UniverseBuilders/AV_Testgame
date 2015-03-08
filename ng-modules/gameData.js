@@ -9,24 +9,24 @@
 
             // game Save
             vm.d_save = new $.Deferred();
-            $http.get('/gameData/currentGame.json').success(function (data) {
+            $http.get('AV_Testgame/gameData/currentGame.json').success(function (data) {
                 window.gameData.save = data;
                 vm.d_save.resolve();
             });
 
             // game constants
             vm.d_region = new $.Deferred();
-            $http.get('/gameData/regions.json').success(function (data) {
+            $http.get('AV_Testgame/gameData/regions.json').success(function (data) {
                 window.gameData.regionData = data;
                 vm.d_region.resolve();
             });
             vm.d_districts = new $.Deferred();
-            $http.get('/gameData/districtTypes.json').success(function (data) {
+            $http.get('AV_Testgame/gameData/districtTypes.json').success(function (data) {
                 window.gameData.districtData = data;
                 vm.d_districts.resolve();
             });
             vm.d_upgrades = new $.Deferred();
-            $http.get('/gameData/upgrades.json').success(function (data) {
+            $http.get('AV_Testgame/gameData/upgrades.json').success(function (data) {
                 window.gameData.upgradeData = data;
                 vm.d_upgrades.resolve();
             });
