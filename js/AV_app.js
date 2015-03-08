@@ -63,7 +63,7 @@
         return sumResources(r1, _r2);
     };
 
-    app.controller('playerControls', ['gameData', '$http', 'res', function(gameData, $http) {
+    app.controller('playerControls', ['gameData', '$http', 'resMath', function(gameData, $http) {
         game = this;  //TODO: un-global this when not debugging
         this.players = [];
         //this.playerID = null; // currently selected player id in players array
@@ -127,7 +127,7 @@
             var building = $("#selected-building").val();
             try {
                 var cost = scaleResources(getBuildingCost(building), amount);
-                if (!res.resources_lessThanOrEq(cost, game.location().resources)) {
+                if (!resMath.lessThanOrEq(cost, game.location().resources)) {
                     throw new Error('insufficient resources');
                 } else {
                     game.location().resources = subtractResources(game.location().resources, cost);

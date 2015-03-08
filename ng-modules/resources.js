@@ -1,9 +1,9 @@
 (function(){
     var app = angular.module('resources', []);
 
-    app.service('res', function() {
-        var res = {};
-        res.resources_lessThanOrEq = function (r1, r2){
+    app.service('resMath', function() {
+        var resMath = {};
+        resMath.lessThanOrEq = function (r1, r2){
             // true if r1 < r2 for all resource values
             for (resKey in r1){
                 if (typeof r2[resKey] === "undefined"){
@@ -20,5 +20,6 @@
             }
             return true;
         };
+        return resMath;
     });
 }());
