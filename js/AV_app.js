@@ -73,15 +73,15 @@
         //        which means that we would get an empty object. Dunno how to fix this. This also means that you should
         //        not remove the 'gameData' dependency though you can't use it in this scope; leaving it here means that
         //        it will work in other modules.
-        $http.get('/gameData/currentGame.json').success(function(data){
+        $http.get('gameData/currentGame.json').success(function(data){
             game.players = data.players;
             game.gameData = data;
         });
-        $http.get('/gameData/regions.json').success(function(data){
+        $http.get('gameData/regions.json').success(function(data){
             game.regionData = data;
         });
 
-        $http.get('/gameData/districtTypes.json').success(function(data){
+        $http.get('gameData/districtTypes.json').success(function(data){
             game.districtData = data;
         });
 
