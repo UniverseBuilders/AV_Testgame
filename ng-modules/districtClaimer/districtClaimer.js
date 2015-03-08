@@ -15,9 +15,16 @@
         this.newDistrictKey = "";
         this.district = {};
 
-        this.getCost = function(loc){
+        this.getDistrictCost = function(loc){
             // returns the cost to build a new district of type given by newDistrictKey
-            return costOf.district(vm.district, loc);
+            console.log('getting cost of ', vm.newDistrictKey, '(len=', vm.newDistrictKey.length, ' in ', loc);
+            if (vm.newDistrictKey.length > 0){
+                var cost = costOf.district(vm.newDistrictKey, loc);
+                console.log('cost=', cost);
+                return cost;
+            } else {
+                return  // key not yet set
+            }
         };
         this.claimDistrict= function(gameO){
             // establishes a new district

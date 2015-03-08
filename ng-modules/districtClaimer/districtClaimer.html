@@ -29,8 +29,9 @@
                     </option>
                 </select>
             </div>
-            {{claimCtrl.district}}
-            Cost to Establish: TODO<br>
+            upgrades:{{claimCtrl.district.upgrades}}<br>
+            slots: {{claimCtrl.district.upgradeSlots}}<br>
+            Cost to Build: {{claimCtrl.getDistrictCost(playCtrl.location())}}<br>
             <div class="form-group">
                 <label>District Name</label>
                 <input class="form-control" type="text" ng-model="claimCtrl.newDistrictName"/>

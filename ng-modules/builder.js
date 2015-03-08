@@ -8,14 +8,14 @@
 
     app.service('costOf', [ 'gameData', function(gameData){
         // helps retrieve the costOf things
-        var costOf = {};
+        costOf = {};
         costOf.upgrade = function(upgradeKey){
             // returns the cost to build given upgrade from table
             return gameData.upgradeData[upgradeKey].cost;
         };
         costOf.district = function(districtKey, location){
             // returns the cost to build new district at given location
-            var baseCost = gameData.districtData[districtKey].cost;
+            var baseCost = gameData.districtData[districtKey].baseCost;
             //TODO: modify that cost based on location data
             // i.e.
             //   * how many other districts?
