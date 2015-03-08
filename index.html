@@ -40,7 +40,7 @@
     <section class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Control Page</h1>
+                <h1 class="page-header">Asteroid Ventures Game Logic Tester</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -68,28 +68,9 @@
             </div>
              <div id="main-controls" ng-show="playCtrl.player().hasPlayed == 'false'">
                 <div class="row">
-
                     <region-selector class="col-lg-3 col-md-6"></region-selector>
 
                     <region-overview class="col-md-4"></region-overview>
-
-                    <div class="col-md-5" ng-show="playCtrl.selectedBodyID >= 0">
-                        <div id="construction-box" class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="huge">Construction</div>
-                            </div>
-                            <div class="panel-footer">
-                                <button id="build-stuff-btn" ng-click="playCtrl.buildIt()">Build</button>
-                                <input type="number" id="build-amount" value="1" min="0" max="999"/>
-                                <!-- TODO: populate this after ajax call to load building stats -->
-                                <select id="selected-building">
-                                    <option value="greenhouse">Greenhouse</option>
-                                    <option value="power plant">Power Plant</option>
-                                    <option value="mine">Metal Mine</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
 
                     <district-claimer class="col-lg-3 col-md-4"></district-claimer>
                 </div>
@@ -110,37 +91,10 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="box box-solid box-success">
-                            <div class="box-header">
-                                <h3 class="box-title">selected player data</h3>
-                            </div>
-                            <div class="box-body">
-                                <div id="raw-player-save" style="font-family:monospace;">
-                                    loading...
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box box-solid box-primary">
-                            <div class="box-header">
-                                <h3 class="box-title">current raw game save json</h3>
-                            </div>
-                            <div class="box-body">
-                                <div id="raw-save" style="font-family:monospace;">
-                                    loading...
-                                </div>
-                                <button onclick="showRawSave('#raw-save')">refresh</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div> <!-- /main-controls -->
             <div>
-                i:{{playCtrl.playerID}} <br>
-                n:{{app.gameData.players[playCtrl.playerID].name}} <br>
-                p:{{playCtrl.player()}}
+                debug stuff: <br>
+                player:{{playCtrl.player()}}
             </div>
         </div><!-- player-controls -->
         <div class="col-md-12">
@@ -169,9 +123,6 @@
 </body>
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
-
-<!-- test scripts -->
-<script src="js/showRawSave.js"></script>
 
 <!-- main app script -->
 <script src="js/controls.js"></script>

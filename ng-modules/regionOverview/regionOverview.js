@@ -21,7 +21,7 @@
                 }
                 return false;
             } catch (err){
-                console.log('err suppressed by regionOverviewController: ', err);
+                console.log('err suppressed by regionOverviewController:'+ err.message);
                 return false;
             }
         };

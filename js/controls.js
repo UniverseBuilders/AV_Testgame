@@ -5,9 +5,9 @@
 // =============================
 getPlayerData = function(playerName){
     // returns player data object for given player name
-    for (var i = 0; i < window.gameData.players.length; i++) {
-        if( window.gameData.players[i].name == playerName ){
-            return window.gameData.players[i];
+    for (var i = 0; i < window.gameData.save.players.length; i++) {
+        if( window.gameData.save.players[i].name == playerName ){
+            return window.gameData.save.players[i];
         }
     }
     // if name not found
@@ -160,29 +160,28 @@ $("#region-chooser").on("change", function(evt){
 // ==============================
 nextTurn = function(){
     // moves to the next turn
-    window.gameData["turn"] = parseInt(window.gameData["turn"]) + 1;
+    window.gameData.save.turn = parseInt(window.gameData.save.turn) + 1;
 
     // reset all player-has-played booleans
-    for (var i = 0; i < window.gameData.players.length; i++) {
-        window.gameData.players[i].hasPlayed = false;
+    for (var i = 0; i < window.gameData.save.players.length; i++) {
+        window.gameData.save.players[i].hasPlayed = false;
     }
 
-    $.post( "/uploadCurrentGame", window.gameData, function( response ) {
+    $.post( "/uploadCurrentGame", window.gameData.save, function( response ) {
         alert('game json uploaded');
         location.reload();
     });
 }
 
-/*
 $(document).on("gameDataLoaded", function(evt){
-    $('#current-turn').html(window.gameData.turn);
+    $('#current-turn').html(window.gameData.save.turn);
 });
 
 $(document).on("gameDataLoaded", function(evt){
     var html = "";
 
-    for (i in gameData.players){
-        var player = gameData.players[i];
+    for (i in gameData.save.players){
+        var player = gameData.save.players[i];
         if (!player.hasPlayed || player.hasPlayed == "false"){
             html += '<i class="fa fa-square-o fa-2x"></i>';
         } else {
@@ -193,7 +192,7 @@ $(document).on("gameDataLoaded", function(evt){
 
     $('#player-completion-list').html(html);
 });
-*/
+
 // ==============================
 
 // ==============================
