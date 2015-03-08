@@ -1,6 +1,6 @@
 {
     "name": "av_testgame",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "express.js node server + web-form frontend to aid AV game design",
     "homepage": "http://asteroid.ventures",
     "bugs": {

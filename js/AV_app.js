@@ -18,34 +18,6 @@
         }
     };
 
-    var sumResources = function(r1, r2){
-        // returns sum of resources in r2 to r1
-        // (for max efficiency r2 should be the shorter of the two lists)
-        var _res = {};
-        // res = copy(r1)
-        for (resKey in r1){
-            _res[resKey] = r1[resKey];
-        }
-        // res += r2
-        for (resKey in r2){
-            if (typeof _res[resKey] === "undefined"){
-                _res[resKey] = parseInt(r2[resKey]);
-            } else {
-                _res[resKey] = parseInt(_res[resKey]) + parseInt(r2[resKey]);
-            }
-        }
-        return _res;
-    };
-
-    var scaleResources = function(resources, scalar){
-        // returns resources *= scalar
-        var res = {}
-        for (resKey in resources){
-            res[resKey] = parseInt(resources[resKey]) * scalar
-        }
-        return res
-    };
-
     var getBuildingCost = function(buildingName){
         // returns the cost to build given building type from table
 
@@ -54,16 +26,7 @@
         return {"metal":4, "biomass": 2}
     };
 
-    var subtractResources = function(r1, r2){
-        // returns r1 - r2
-        var _r2 = {};  // use a copy so we don't mutate original r2
-        for (resKey in r2){
-            _r2[resKey] = -parseInt(r2[resKey]);
-        }
-        return sumResources(r1, _r2);
-    };
-
-    app.controller('playerControls', ['gameData', '$http', 'resMath', function(gameData, $http) {
+    app.controller('playerControls', ['gameData', '$http', 'resMath', function(gameData, $http, resMath) {
         game = this;  //TODO: un-global this when not debugging
         this.players = [];
         //this.playerID = null; // currently selected player id in players array
@@ -114,8 +77,8 @@
                 for (buildingName in game.location().units) {
                     var buildingOutput = getProductionLevels(buildingName);
                     var buildingCount = game.location().units[buildingName];
-                    var totalOutput = scaleResources(buildingOutput, buildingCount);
-                    production = sumResources(production, totalOutput);
+                    var totalOutput = resMath.scale(buildingOutput, buildingCount);
+                    production = resMath.sum(production, totalOutput);
                 }
                 return production;
             } else {
@@ -126,11 +89,11 @@
             var amount = $("#build-amount").val();
             var building = $("#selected-building").val();
             try {
-                var cost = scaleResources(getBuildingCost(building), amount);
+                var cost = resMath.scale(getBuildingCost(building), amount);
                 if (!resMath.lessThanOrEq(cost, game.location().resources)) {
                     throw new Error('insufficient resources');
                 } else {
-                    game.location().resources = subtractResources(game.location().resources, cost);
+                    game.location().resources = resMath.subtract(game.location().resources, cost);
                 }
                 // add building to count
                 if (typeof game.location().units[building] === undefined){
@@ -157,7 +120,7 @@
             // compute production (@ each location) for this turn
             for (locationIndex in game.player().locations){
                 game.selectedBodyID = locationIndex;
-                game.location().resources = sumResources(game.location().resources, game.productionLevels());
+                game.location().resources = resMath.sum(game.location().resources, game.productionLevels());
             }
 
             game.gameData.players = game.players;
