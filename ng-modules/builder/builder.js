@@ -27,12 +27,16 @@
         return costOf;
     }]);
 
-    app.service('build', function() {
+    app.service('build', ['resMath', function(resMath) {
         // the build service provides functions to help buy & create in-game units, districts, etc
         var build = {};
 
+        build.district = function(){
+            return true;
+        };
+
         build._it = function(cost, bank, contructFunc, args){
-            // executes constructFunc(args) if player bank >= cost
+            // executes constructFunc(args) if player bank >= cost and charges cost to bank
             if (resMath.lessThanOrEq(cost, bank) ) {
                 bank = resMath.subtract(bank, cost);
                 contructFunc(args);
@@ -42,5 +46,6 @@
         };
 
         return build;
-    });
+
+    }]);
 }());
