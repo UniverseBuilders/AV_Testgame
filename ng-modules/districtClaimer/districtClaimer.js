@@ -8,7 +8,7 @@
         };
     });
 
-    app.controller('districtClaimController', ['gameData', 'costOf', function(gameData, costOf){
+    app.controller('districtClaimController', ['gameData', 'costOf', 'build', function(gameData, costOf){ // , build){
         var vm = this;
         this.launchPointID = 0;
         this.newDistrictName = "Springfield";
@@ -27,33 +27,36 @@
             }
         };
         this.claimDistrict= function(gameO){
-            // establishes a new district
-            var district = gameData.districtData[vm.newDistrictKey];  // district def object
-            if ( typeof gameO.location() === "undefined"){
-                // player doesn't have anything @ this location yet
-                gameO.player().locations.push(
-                    {
-                        "body": gameO.selectedBodyID,
-                        "territoryName": gameO.selectedTerritory,
-                        "resources": {
-                            "biomass": "0",
-                            "metal": "0",
-                            "energy": "0"
-                        },
-                        "districts":[
-                            vm.makeNewDistrict(district)
-                        ],
+            var createDistrict = function(gameO){
+                // establishes a new district
+                var district = gameData.districtData[vm.newDistrictKey];  // district def object
+                if ( typeof gameO.location() === "undefined"){
+                    // player doesn't have anything @ this location yet
+                    gameO.player().locations.push(
+                        {
+                            "body": gameO.selectedBodyID,
+                            "territoryName": gameO.selectedTerritory,
+                            "resources": {
+                                "biomass": "0",
+                                "metal": "0",
+                                "energy": "0"
+                            },
+                            "districts":[
+                                vm.makeNewDistrict(district)
+                            ],
                             "units": {
                                 "greenhouse": "0",
                                 "power plant": "0",
                                 "mine": "0"
+                            }
                         }
-                    }
-                );
-            } else {
-                gameO.location().districts.push(vm.makeNewDistrict(district));
+                    );
+                } else {
+                    gameO.location().districts.push(vm.makeNewDistrict(district));
+                }
             }
-            //TODO: subtract cost of establishment from launchPoint
+
+            build._it(costOf(vm.newDistrictKey), gameO.location[vm.launchPointID].resources, createDistrict, gameO);
             //gameO.player().locations[vm.launchPointID].resources -= cost
 
             // change district name to reduce chance of duplicate names

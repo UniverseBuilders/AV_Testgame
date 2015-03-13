@@ -31,7 +31,7 @@
         // the build service provides functions to help buy & create in-game units, districts, etc
         var build = {};
 
-        build.district = function(){
+        build.district = function(location){
             return true;
         };
 
