@@ -16,7 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
         // angular dependencies
-        'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-mocks.js',
         // modules:
         "ng-modules/gameData.js",

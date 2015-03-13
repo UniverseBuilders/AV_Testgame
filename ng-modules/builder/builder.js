@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module('builder', ['gameDataService']);
+    var app = angular.module('builder', ['gameDataService', 'resources']);
 
     app.cantAfford = function(){
         // what to do when player can't afford something
@@ -38,7 +38,14 @@
         build._it = function(cost, bank, contructFunc, args){
             // executes constructFunc(args) if player bank >= cost and charges cost to bank
             if (resMath.lessThanOrEq(cost, bank) ) {
-                bank = resMath.subtract(bank, cost);
+                newBank = resMath.subtract(bank, cost);
+                for (resKey in newBank){
+                    if (parseInt(newBank[resKey]) < 1){  // remove resource if 0
+                        delete bank[resKey];
+                    } else {
+                        bank[resKey] = newBank[resKey];
+                    }
+                }
                 contructFunc(args);
             } else {
                 app.cantAfford();
