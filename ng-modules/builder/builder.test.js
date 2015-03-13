@@ -3,8 +3,6 @@
 describe('builder helper functions', function() {
     beforeEach(module('builder'));
 
-    var builder;
-
     /*
     beforeEach(inject(function(_build_, $gameData, $resMath){
         // The injector unwraps the underscores (_) from around the parameter names when matching

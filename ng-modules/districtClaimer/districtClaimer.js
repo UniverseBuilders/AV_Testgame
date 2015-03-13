@@ -8,7 +8,7 @@
         };
     });
 
-    app.controller('districtClaimController', ['gameData', 'costOf', 'build', function(gameData, costOf){ // , build){
+    app.controller('districtClaimController', ['gameData', 'costOf', 'build', function(gameData, costOf, build){
         var vm = this;
         this.launchPointID = 0;
         this.newDistrictName = "Springfield";
@@ -56,7 +56,7 @@
                 }
             }
 
-            build._it(costOf(vm.newDistrictKey), gameO.location[vm.launchPointID].resources, createDistrict, gameO);
+            build._it(costOf.district(vm.newDistrictKey), gameO.player().locations[vm.launchPointID].resources, createDistrict, gameO);
             //gameO.player().locations[vm.launchPointID].resources -= cost
 
             // change district name to reduce chance of duplicate names

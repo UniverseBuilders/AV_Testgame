@@ -22,6 +22,7 @@ module.exports = function(config) {
         "ng-modules/gameData.js",
         "ng-modules/resources.js",
         'ng-modules/builder/builder.js',
+        'ng-modules/districtClaimer/districtClaimer.js',
         // tests:
         'ng-modules/*/*.test.js'
     ],
