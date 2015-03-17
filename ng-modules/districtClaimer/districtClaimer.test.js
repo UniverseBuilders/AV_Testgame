@@ -15,7 +15,6 @@ describe('districtClaimer tests', function() {
 
             beforeEach(inject(function(_$controller_) {
                 $controller = _$controller_;
-                console.log('c', $controller);
             }));
 
             console.log('C', $controller);
@@ -46,10 +45,9 @@ describe('districtClaimer tests', function() {
                 districtClaimController.newDistrictKey = 'solar-power';
                 districtClaimController.newDistrictName = 'p1 test new district'
 
-                // TODO: fix gameData loading then come back to this
-                //districtClaimController.claimDistrict(gameObj);
+                districtClaimController.claimDistrict(gameObj);
 
-                //expect(gameObj.location().districts.length).toEqual(2);
+                expect(gameObj.location().districts.length).toEqual(2);
             });
         });
     });

@@ -4,6 +4,18 @@ var serveStatic = require('serve-static');
 var fs = require('fs');
 var bodyParser = require('body-parser')
 
+// build the window.gameData setting javascript file. TODO: this is the worst thing I have ever done
+console.log("hacking together the game data...");
+var gameData = {};
+gameData.save = require("./gameData/currentGame.json");
+gameData.districtData = require("./gameData/districtTypes.json");
+gameData.regionData = require("./gameData/regions.json");
+gameData.upgradeData = require("./gameData/upgrades.json");
+fileData = "window.gameData="+JSON.stringify(gameData);
+console.log(fileData);
+fs.writeFileSync("./gameData/GAME_DATA.js", fileData);
+
+console.log("prepping the server...");
 // set up for post req.body parser
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
