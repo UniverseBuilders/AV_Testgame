@@ -18,6 +18,8 @@ module.exports = function(config) {
         // angular dependencies
         'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-mocks.js',
+        // libraries
+        'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js',
         // modules:
         "ng-modules/gameData.js",
         "ng-modules/resources.js",

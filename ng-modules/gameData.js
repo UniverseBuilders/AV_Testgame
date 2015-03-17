@@ -33,7 +33,7 @@
 
             $.when(vm.d_save, vm.d_region, vm.d_districts, vm.d_upgrades ).done(function () {
                 vm.ready = true;
-                console.log(window.gameData);
+                console.log('real gameData is ready');
                 $(document).trigger('gameDataLoaded');
             });
 

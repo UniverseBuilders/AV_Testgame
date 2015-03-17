@@ -15,14 +15,22 @@
         };
         costOf.district = function(districtKey, location){
             // returns the cost to build new district at given location
-            var baseCost = gameData.districtData[districtKey].baseCost;
-            //TODO: modify that cost based on location data
-            // i.e.
-            //   * how many other districts?
-            //   * what type of location is this?
-            //   * what type of chassis are we putting on the district?
-            var cost = baseCost;
-            return cost;
+            try {
+                var baseCost = gameData.districtData[districtKey].baseCost;
+                //TODO: modify that cost based on location data
+                // i.e.
+                //   * how many other districts?
+                //   * what type of location is this?
+                //   * what type of chassis are we putting on the district?
+                var cost = baseCost;
+                return cost;
+            } catch(err){
+                if (err.name == 'TypeError'){
+                    throw new Error('gameData not loaded yet! =(');
+                } else {
+                    throw err;
+                }
+            }
         };
         return costOf;
     }]);
